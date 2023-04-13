@@ -14,12 +14,19 @@ import java.util.Optional;
 @Log
 public class SQLSupport {
 
+    private final String connectionPropertiesFile;
     private String connectionURL;
     @Getter
     private List<String> errorMessages;
 
     public SQLSupport(){
         errorMessages = new ArrayList<>();
+        connectionPropertiesFile = "sqlconnection.properties";
+    }
+
+    public SQLSupport(String connectionPropertiesFile){
+        errorMessages = new ArrayList<>();
+        this.connectionPropertiesFile = connectionPropertiesFile;
     }
 
     public void runSQLQuery(SQLQuery query){
@@ -90,7 +97,7 @@ public class SQLSupport {
         Optional<Connection> connection = Optional.empty();
 
         try{
-            var propertyLoader = new PropertyLoader("sqlconnection.properties");
+            var propertyLoader = new PropertyLoader(connectionPropertiesFile);
 
             var driver = propertyLoader.getProperty("driver");
             var host = propertyLoader.getProperty("host");
