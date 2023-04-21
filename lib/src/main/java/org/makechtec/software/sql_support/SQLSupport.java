@@ -14,19 +14,24 @@ import java.util.Optional;
 @Log
 public class SQLSupport {
 
-    private final String connectionPropertiesFile;
     private String connectionURL;
     @Getter
     private List<String> errorMessages;
+    private final ConnectionInformation connectionInformation;
 
     public SQLSupport(){
         errorMessages = new ArrayList<>();
-        connectionPropertiesFile = "sqlconnection.properties";
+        this.connectionInformation = this.connectionFromFile("sqlconnection.properties");
     }
 
     public SQLSupport(String connectionPropertiesFile){
         errorMessages = new ArrayList<>();
-        this.connectionPropertiesFile = connectionPropertiesFile;
+        this.connectionInformation = this.connectionFromFile(connectionPropertiesFile);
+    }
+
+    public SQLSupport(ConnectionInformation connectionInformation){
+        errorMessages = new ArrayList<>();
+        this.connectionInformation = connectionInformation;
     }
 
     public void runSQLQuery(SQLQuery query){
@@ -97,19 +102,14 @@ public class SQLSupport {
         Optional<Connection> connection = Optional.empty();
 
         try{
-            var propertyLoader = new PropertyLoader(connectionPropertiesFile);
 
-            var driver = propertyLoader.getProperty("driver");
-            var host = propertyLoader.getProperty("host");
-            var port = propertyLoader.getProperty("port");
-            var dbname = propertyLoader.getProperty("dbname");
-            var user = propertyLoader.getProperty("user");
-            var password = propertyLoader.getProperty("password");
-
-            var url = "jdbc:" + driver.orElse("") + "://" + host.orElse("") + ":" + port.orElse("") + "/" + dbname.orElse("");
+            var url = "jdbc:mysql://" +
+                    connectionInformation.hostname() +
+                    ":" + connectionInformation.port() +
+                    "/" + connectionInformation.database();
 
             this.connectionURL = url;
-            var successConnection = DriverManager.getConnection(url, user.orElse(""), password.orElse(""));
+            var successConnection = DriverManager.getConnection(url, connectionInformation.user(), connectionInformation.password());
 
             connection = Optional.of(successConnection);
         }
@@ -132,5 +132,23 @@ public class SQLSupport {
         errorMessages.forEach(log::severe);
     }
 
+    private ConnectionInformation connectionFromFile(String propertiesFile){
+        var propertyLoader = new PropertyLoader(propertiesFile);
+
+        var host = propertyLoader.getProperty("db_hostname");
+        var port = propertyLoader.getProperty("db_port");
+        var dbname = propertyLoader.getProperty("db_name");
+        var user = propertyLoader.getProperty("db_user");
+        var password = propertyLoader.getProperty("db_password");
+
+        return new ConnectionInformation(
+                user.orElse(""),
+                password.orElse(""),
+                host.orElse(""),
+                port.orElse(""),
+                dbname.orElse("")
+        );
+
+    }
 
 }
