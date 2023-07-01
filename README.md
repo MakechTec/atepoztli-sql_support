@@ -16,7 +16,7 @@ __Maven__
 
 __Gradle__
 
-    implementation 'org.makechtec.software:sql_support:1.2.0'
+    implementation 'org.makechtec.software:sql_support:1.3.0'
 
 ## Usage ##
 
