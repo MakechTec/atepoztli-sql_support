@@ -11,12 +11,12 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>1.3.0</version>
+        <version>1.3.2</version>
     </dependency>
 
 __Gradle__
 
-    implementation 'org.makechtec.software:sql_support:1.3.0'
+    implementation 'org.makechtec.software:sql_support:1.3.2'
 
 ## Usage ##
 
@@ -45,13 +45,13 @@ __Example producing a Dto record__
                 };
 
     var dto =
-            ProducerCallEngine.builder(Dto.class, connectionCredentials)
+            ProducerCallEngine.<Dto>builder(connectionCredentials)
                                 .isPrepared()
                                 .setQueryString("CALL dto_by_id(?)")
                                 .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
                                 .produce(producer);
 
-    assertTrue(dto.isPresent());
+    assertFalse(dto.name().isEmpty());
 
 Dto.java
 
