@@ -12,19 +12,26 @@ public class CallExecutorTest {
     public void testCall(){
 
         var connectionCredentials = new ConnectionInformation(
-                "lib_tester",
-                "3nitrotoluenO@",
+                "root",
+                "",
                 "localhost",
                 "3306",
-                "lib_tests"
+                "lib_testing"
         );
 
         ProducerByCall<Dto> producer =
-                resultSet ->
-                    new Dto(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name")
-                    );
+                resultSet -> {
+
+                    Dto dto = null;
+                    while(resultSet.next()){
+                        dto = new Dto(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name")
+                        );
+                    }
+
+                    return dto;
+                };
 
         var dto =
                 ProducerCallEngine.builder(Dto.class, connectionCredentials)
