@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CallExecutor<P> {
 
@@ -24,12 +23,10 @@ public class CallExecutor<P> {
         this.statementInformation = statementInformation;
     }
 
-    public Optional<P> execute( ProducerByCall<P> producer ){
+    public P execute( ProducerByCall<P> producer ){
         this.errorMessages = new ArrayList<>();
 
         var support = new SQLSupport(connectionInformation);
-
-        Optional<P> response = Optional.empty();
 
         Wrapper<P> wrapper = new Wrapper<>();
 
@@ -63,8 +60,7 @@ public class CallExecutor<P> {
 
         this.errorMessages = support.getErrorMessages();
 
-        response = Optional.of(wrapper.reservedSpace);
-        return response;
+        return wrapper.reservedSpace;
     }
 
     private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection) throws SQLException {
