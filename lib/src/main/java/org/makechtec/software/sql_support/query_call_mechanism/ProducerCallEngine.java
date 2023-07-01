@@ -42,7 +42,7 @@ public class ProducerCallEngine<P> {
         return caller.execute(producer);
     }
 
-    public static <P> ProducerCallEngine<P> builder(Class<P> producedType, ConnectionInformation connectionInformation){
+    public static <P> ProducerCallEngine<P> builder(ConnectionInformation connectionInformation){
         return new ProducerCallEngine<>(connectionInformation);
     }
 

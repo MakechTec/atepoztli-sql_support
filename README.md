@@ -45,7 +45,7 @@ __Example producing a Dto record__
                 };
 
     var dto =
-            ProducerCallEngine.builder(Dto.class, connectionCredentials)
+            ProducerCallEngine.<Dto>builder(connectionCredentials)
                                 .isPrepared()
                                 .setQueryString("CALL dto_by_id(?)")
                                 .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
