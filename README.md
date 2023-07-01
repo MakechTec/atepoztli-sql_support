@@ -31,11 +31,18 @@ __Example producing a Dto record__
         );
 
     ProducerByCall<Dto> producer =
-            resultSet ->
-                new Dto(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name")
-                );
+                resultSet -> {
+
+                    Dto dto = null;
+                    while(resultSet.next()){
+                        dto = new Dto(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name")
+                        );
+                    }
+
+                    return dto;
+                };
 
     var dto =
             ProducerCallEngine.builder(Dto.class, connectionCredentials)
