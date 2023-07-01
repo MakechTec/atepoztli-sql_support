@@ -11,43 +11,41 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>1.2.0</version>
+        <version>1.3.0</version>
     </dependency>
 
 __Gradle__
 
-    implementation 'org.makechtec.software:sql_support:1.2.0'
+    implementation 'org.makechtec.software:sql_support:1.3.0'
 
 ## Usage ##
 
-__Example of update__
+__Example producing a Dto record__
 
-    var statementInformation =
-    StatementInformation.builder()
-                        .setQueryString("SELECT * FROM names;")
-                        .build();
-    
-    var caller = new QueryCaller(connectionInformation, statementInformation);
+    var connectionCredentials = new ConnectionInformation(
+                "user",
+                "pass",
+                "host",
+                "3306",
+                "database"
+        );
 
-    caller.callUpdate();
+    ProducerByCall<Dto> producer =
+            resultSet ->
+                new Dto(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name")
+                );
 
-__Example of call__
+    var dto =
+            ProducerCallEngine.builder(Dto.class, connectionCredentials)
+                                .isPrepared()
+                                .setQueryString("CALL dto_by_id(?)")
+                                .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
+                                .produce(producer);
 
-    var statementInformation =
-    StatementInformation.builder()
-                        .setQueryString("SELECT * FROM names;")
-                        .build();
+    assertTrue(dto.isPresent());
 
-    var caller = new QueryCaller(connectionInformation, statementInformation);
+Dto.java
 
-    var results = new ArrayList<String>();
-
-    caller.call( resultSet -> {
-
-        while(resultSet.next()){
-            results.add(resultSet.getString("name"));
-        }
-
-    });
-
-    caller.getErrorMessages().forEach(log::info);
+    public record Dto(int id, String name) {}
