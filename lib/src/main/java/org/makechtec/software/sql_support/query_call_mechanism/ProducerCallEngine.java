@@ -1,11 +1,8 @@
 package org.makechtec.software.sql_support.query_call_mechanism;
 
 import org.makechtec.software.sql_support.ConnectionInformation;
-import org.makechtec.software.sql_support.query_process.QueryCaller;
 import org.makechtec.software.sql_support.query_process.statement.ParamType;
 import org.makechtec.software.sql_support.query_process.statement.StatementInformation;
-
-import java.util.Optional;
 
 public class ProducerCallEngine<P> {
 
@@ -35,7 +32,7 @@ public class ProducerCallEngine<P> {
         return this;
     }
 
-    public Optional<P> produce( ProducerByCall<P> producer ){
+    public P produce( ProducerByCall<P> producer ){
         var statement = this.statementInformationBuilder.build();
         var caller = new CallExecutor<P>(this.connectionInformation, statement);
 

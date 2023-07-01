@@ -51,7 +51,7 @@ __Example producing a Dto record__
                                 .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
                                 .produce(producer);
 
-    assertTrue(dto.isPresent());
+    assertFalse(dto.name().isEmpty());
 
 Dto.java
 

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.makechtec.software.sql_support.ConnectionInformation;
 import org.makechtec.software.sql_support.query_process.statement.ParamType;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CallExecutorTest {
 
@@ -40,7 +40,7 @@ public class CallExecutorTest {
                                     .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
                                     .produce(producer);
 
-        assertTrue(dto.isPresent());
+        assertFalse(dto.name().isEmpty());
 
     }
 
