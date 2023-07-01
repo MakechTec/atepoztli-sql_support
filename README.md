@@ -2,6 +2,7 @@
 ## Requirements ##
 
 - java 17+
+- MySQL as database
 
 ## Dependency ##
 
