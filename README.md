@@ -11,12 +11,12 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>1.3.2</version>
+        <version>1.4.0</version>
     </dependency>
 
 __Gradle__
 
-    implementation 'org.makechtec.software:sql_support:1.3.2'
+    implementation 'org.makechtec.software:sql_support:1.4.0'
 
 ## Usage ##
 
