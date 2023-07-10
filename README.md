@@ -11,12 +11,12 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>1.3.2</version>
+        <version>1.4.0</version>
     </dependency>
 
 __Gradle__
 
-    implementation 'org.makechtec.software:sql_support:1.3.2'
+    implementation 'org.makechtec.software:sql_support:1.4.0'
 
 ## Usage ##
 
@@ -56,3 +56,19 @@ __Example producing a Dto record__
 Dto.java
 
     public record Dto(int id, String name) {}
+
+
+### Releases history ###
+
+1.4.0 Added more supported prepared statement types, in total they are:
+
+- TYPE_STRING
+- TYPE_INTEGER
+- TYPE_FLOAT
+- TYPE_LONG
+- TYPE_BIG_DECIMAL
+- TYPE_DOUBLE
+
+
+
+1.3.2 Added ProducerByCall functionality
