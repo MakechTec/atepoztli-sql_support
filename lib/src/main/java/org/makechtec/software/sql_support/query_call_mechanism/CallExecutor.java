@@ -5,6 +5,7 @@ import org.makechtec.software.sql_support.ConnectionInformation;
 import org.makechtec.software.sql_support.SQLSupport;
 import org.makechtec.software.sql_support.query_process.statement.StatementInformation;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -73,6 +74,9 @@ public class CallExecutor<P> {
                     case TYPE_STRING -> statement.setString(param.position(), (String) param.value());
                     case TYPE_INTEGER -> statement.setInt(param.position(), (int) param.value());
                     case TYPE_FLOAT -> statement.setFloat(param.position(), (float) param.value());
+                    case TYPE_LONG -> statement.setLong(param.position(), (long) param.value());
+                    case TYPE_BIG_DECIMAL -> statement.setBigDecimal(param.position(), (BigDecimal) param.value());
+                    case TYPE_DOUBLE -> statement.setDouble(param.position(), (double) param.value());
                 }
             }
             catch(SQLException e){

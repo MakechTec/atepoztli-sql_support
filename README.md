@@ -11,12 +11,12 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
     </dependency>
 
 __Gradle__
 
-    implementation 'org.makechtec.software:sql_support:1.4.0'
+    implementation 'org.makechtec.software:sql_support:1.4.1'
 
 ## Usage ##
 
@@ -59,6 +59,8 @@ Dto.java
 
 
 ### Releases history ###
+
+1.4.1 Fixing bug in types
 
 1.4.0 Added more supported prepared statement types, in total they are:
 
