@@ -11,12 +11,12 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>1.4.1</version>
+        <version>1.4.2</version>
     </dependency>
 
 __Gradle__
 
-    implementation 'org.makechtec.software:sql_support:1.4.1'
+    implementation 'org.makechtec.software:sql_support:1.4.2'
 
 ## Usage ##
 
@@ -59,6 +59,8 @@ Dto.java
 
 
 ### Releases history ###
+
+1.4.2 Fixing bug related to com.mysql.cj.jdbc.Driver class load
 
 1.4.1 Fixing bug in types
 

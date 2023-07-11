@@ -10,9 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Log
 public class SQLSupport {
+
+    private static final Logger LOG = Logger.getLogger(SQLSupport.class.getName());
 
     private String connectionURL;
     @Getter
@@ -103,6 +106,8 @@ public class SQLSupport {
 
         try{
 
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+
             var url = "jdbc:mysql://" +
                     connectionInformation.hostname() +
                     ":" + connectionInformation.port() +
@@ -122,6 +127,8 @@ public class SQLSupport {
                     e.getMessage();
 
             errorMessages.add(connectionError);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            LOG.warning("There was an error creating the connection to MySQL server: " + e.getMessage());
         }
 
         return connection;
