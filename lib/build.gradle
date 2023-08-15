@@ -56,13 +56,18 @@ publishing {
     }
 
     repositories {
+
         maven {
-            name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/angeldomp49/sql_support"
+            isAllowInsecureProtocol = true
+            url = uri("http://makechtec.online:8080/yolotli/package")
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = System.getenv("MAKECH_USERNAME")
+                password = System.getenv("MAKECH_PASSWORD")
+            }
+            authentication {
+                create<BasicAuthentication>("basic")
             }
         }
+
     }
 }
