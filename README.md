@@ -2,6 +2,7 @@
 
 - java 17+
 - MySQL as database
+- PostgreSQL ad database [link to docs](/docs/postgres.md)
 
 ## Dependency ##
 
@@ -10,7 +11,7 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>1.4.2</version>
+        <version>2.0.0</version>
     </dependency>
 
 __Gradle__
@@ -57,6 +58,8 @@ Dto.java
     public record Dto(int id, String name) {}
 
 ### Releases history ###
+
+2.0.0 Added PostgreSQL support 
 
 1.4.2 Fixing bug related to com.mysql.cj.jdbc.Driver class load
 
