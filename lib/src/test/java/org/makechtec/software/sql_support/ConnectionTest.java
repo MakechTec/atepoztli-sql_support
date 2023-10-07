@@ -18,7 +18,7 @@ public class ConnectionTest {
     public void testSqlSupportRunSQLQuery() throws SQLException {
 
 
-        try(var staticMock = Mockito.mockStatic(DriverManager.class)){
+        try (var staticMock = Mockito.mockStatic(DriverManager.class)) {
 
             var fakeConnection = Mockito.mock(Connection.class);
 
@@ -27,7 +27,7 @@ public class ConnectionTest {
                     ":" + "9000" +
                     "/" + "testdatabase";
 
-            staticMock.when( () -> DriverManager.getConnection(url, "makechtestuser", "makechpass"))
+            staticMock.when(() -> DriverManager.getConnection(url, "makechtestuser", "makechpass"))
                     .thenReturn(fakeConnection);
 
 
@@ -37,10 +37,9 @@ public class ConnectionTest {
 
             var sqlSupport = new SQLSupport();
 
-            sqlSupport.runSQLQuery( connection -> assertEquals(fakeConnection, connection));
+            sqlSupport.runSQLQuery(connection -> assertEquals(fakeConnection, connection));
 
         }
-
 
 
     }
@@ -50,7 +49,7 @@ public class ConnectionTest {
     public void testSqlSupportRunSQLTransaction() throws SQLException {
 
 
-        try(var staticMock = Mockito.mockStatic(DriverManager.class)){
+        try (var staticMock = Mockito.mockStatic(DriverManager.class)) {
 
             var fakeConnection = Mockito.mock(Connection.class);
 
@@ -85,10 +84,9 @@ public class ConnectionTest {
                     .when(fakeConnection)
                     .commit();
 
-            sqlSupport.runSQLTransaction( connection -> assertEquals(fakeConnection, connection));
+            sqlSupport.runSQLTransaction(connection -> assertEquals(fakeConnection, connection));
 
         }
-
 
 
     }

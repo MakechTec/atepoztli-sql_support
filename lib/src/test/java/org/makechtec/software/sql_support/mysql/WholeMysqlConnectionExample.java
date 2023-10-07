@@ -1,23 +1,24 @@
-package org.makechtec.software.sql_support.query_call_mechanism;
+package org.makechtec.software.sql_support.mysql;
 
 import org.junit.jupiter.api.Test;
 import org.makechtec.software.sql_support.ConnectionInformation;
+import org.makechtec.software.sql_support.query_call_mechanism.Dto;
+import org.makechtec.software.sql_support.query_call_mechanism.ProducerByCall;
 import org.makechtec.software.sql_support.query_process.statement.ParamType;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
-public class CallExecutorTest {
+public class WholeMysqlConnectionExample {
 
     @Test
-    public void testCall() {
-
+    public void example() {
         var connectionCredentials = new ConnectionInformation(
-                "root",
-                "",
-                "localhost",
+                "user",
+                "pass",
+                "host",
                 "3306",
-                "lib_testing"
+                "database"
         );
+
+        var postgresEngine = new MysqlEngine<Dto>(connectionCredentials);
 
         ProducerByCall<Dto> producer =
                 resultSet -> {
@@ -33,15 +34,11 @@ public class CallExecutorTest {
                     return dto;
                 };
 
-        var dto =
-                ProducerCallEngine.<Dto>builder(connectionCredentials)
-                        .isPrepared()
-                        .setQueryString("CALL dto_by_id(?)")
+        var result =
+                postgresEngine.isPrepared()
+                        .queryString("CALL dto_by_id(?)")
                         .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
-                        .produce(producer);
-
-        assertFalse(dto.name().isEmpty());
-
+                        .run(producer);
     }
 
 }

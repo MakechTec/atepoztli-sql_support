@@ -16,45 +16,43 @@ import java.util.logging.Logger;
 public class SQLSupport {
 
     private static final Logger LOG = Logger.getLogger(SQLSupport.class.getName());
-
+    private final ConnectionInformation connectionInformation;
     private String connectionURL;
     @Getter
     private List<String> errorMessages;
-    private final ConnectionInformation connectionInformation;
 
-    public SQLSupport(){
+    public SQLSupport() {
         errorMessages = new ArrayList<>();
         this.connectionInformation = this.connectionFromFile("sqlconnection.properties");
     }
 
-    public SQLSupport(String connectionPropertiesFile){
+    public SQLSupport(String connectionPropertiesFile) {
         errorMessages = new ArrayList<>();
         this.connectionInformation = this.connectionFromFile(connectionPropertiesFile);
     }
 
-    public SQLSupport(ConnectionInformation connectionInformation){
+    public SQLSupport(ConnectionInformation connectionInformation) {
         errorMessages = new ArrayList<>();
         this.connectionInformation = connectionInformation;
     }
 
-    public void runSQLQuery(SQLQuery query){
+    public void runSQLQuery(SQLQuery query) {
 
         errorMessages = new ArrayList<>();
 
         var connection = this.createConnection();
 
-        if(connection.isEmpty()){
+        if (connection.isEmpty()) {
             errorMessages.add("No connected to the SQL Server for URL: " + connectionURL);
             showErrorMessages();
             return;
         }
 
-        try{
+        try {
             Connection verfiedConnection = connection.get();
             query.execute(verfiedConnection);
             verfiedConnection.close();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             var queryError = "Error in SQL Query: \n" +
                     "Code: " + " \n" +
                     e.getErrorCode() + " \n" +
@@ -67,28 +65,27 @@ public class SQLSupport {
 
     }
 
-    public void runSQLTransaction(SQLQuery query){
+    public void runSQLTransaction(SQLQuery query) {
 
         errorMessages = new ArrayList<>();
         var connection = this.createConnection();
 
-        if(connection.isEmpty()){
+        if (connection.isEmpty()) {
             errorMessages.add("No connected to the SQL Server for URL: " + connectionURL);
             showErrorMessages();
             return;
         }
 
-        log.info("Connected by url: " + connectionURL);
+        LOG.info("Connected by url: " + connectionURL);
 
-        try{
+        try {
 
             var verfiedConnection = connection.get();
             verfiedConnection.setAutoCommit(false);
             query.execute(verfiedConnection);
             verfiedConnection.commit();
             verfiedConnection.close();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             var queryError = "Error in SQL Query: \n" +
                     "Code: " + " \n" +
                     e.getErrorCode() + " \n" +
@@ -100,11 +97,11 @@ public class SQLSupport {
         }
     }
 
-    private Optional<Connection> createConnection(){
+    private Optional<Connection> createConnection() {
 
         Optional<Connection> connection = Optional.empty();
 
-        try{
+        try {
 
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 
@@ -117,8 +114,7 @@ public class SQLSupport {
             var successConnection = DriverManager.getConnection(url, connectionInformation.user(), connectionInformation.password());
 
             connection = Optional.of(successConnection);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
 
             var connectionError = "Error in SQL connection: \n" +
                     "Code: " + " \n" +
@@ -135,11 +131,11 @@ public class SQLSupport {
 
     }
 
-    private void showErrorMessages(){
-        errorMessages.forEach(log::severe);
+    private void showErrorMessages() {
+        errorMessages.forEach(LOG::severe);
     }
 
-    private ConnectionInformation connectionFromFile(String propertiesFile){
+    private ConnectionInformation connectionFromFile(String propertiesFile) {
         var propertyLoader = new PropertyLoader(propertiesFile);
 
         var host = propertyLoader.getProperty("db_hostname");

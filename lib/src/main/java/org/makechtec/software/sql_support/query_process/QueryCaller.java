@@ -16,24 +16,19 @@ public class QueryCaller {
 
     private final ConnectionInformation connectionInformation;
     private final StatementInformation statementInformation;
-    @Getter
-    private List<String> errorMessages;
 
     public QueryCaller(ConnectionInformation connectionInformation, StatementInformation statementInformation) {
         this.connectionInformation = connectionInformation;
         this.statementInformation = statementInformation;
-        this.errorMessages = new ArrayList<>();
     }
 
-    public void call(QueryConsumer consumer){
-
-        this.errorMessages = new ArrayList<>();
+    public void call(QueryConsumer consumer) {
 
         var support = new SQLSupport(connectionInformation);
 
-        support.runSQLQuery( connection -> {
-            if(statementInformation.isPrepared()){
-                var preparedStatement = this.createPreparedStatement( statementInformation, connection);
+        support.runSQLQuery(connection -> {
+            if (statementInformation.isPrepared()) {
+                var preparedStatement = this.createPreparedStatement(statementInformation, connection);
 
                 preparedStatement.execute();
 
@@ -44,8 +39,7 @@ public class QueryCaller {
                 resultSet.close();
                 preparedStatement.close();
 
-            }
-            else{
+            } else {
                 var statement = connection.createStatement();
 
                 statement.execute(statementInformation.getQueryString());
@@ -59,26 +53,22 @@ public class QueryCaller {
             }
         });
 
-        this.errorMessages = support.getErrorMessages();
-
     }
 
-    public void callUpdate(){
+    public void callUpdate() {
 
-        this.errorMessages = new ArrayList<>();
 
         var support = new SQLSupport(connectionInformation);
 
-        support.runSQLQuery( connection -> {
-            if(statementInformation.isPrepared()){
-                var preparedStatement = this.createPreparedStatement( statementInformation, connection);
+        support.runSQLQuery(connection -> {
+            if (statementInformation.isPrepared()) {
+                var preparedStatement = this.createPreparedStatement(statementInformation, connection);
 
                 preparedStatement.executeUpdate();
 
                 preparedStatement.close();
 
-            }
-            else{
+            } else {
                 var statement = connection.createStatement();
 
                 statement.executeUpdate(statementInformation.getQueryString());
@@ -86,16 +76,14 @@ public class QueryCaller {
                 statement.close();
             }
         });
-
-        this.errorMessages = support.getErrorMessages();
     }
 
     private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection) throws SQLException {
         var statement = connection.prepareStatement(statementInformation.getQueryString());
 
-        statementInformation.getParams().forEach( param -> {
+        statementInformation.getParams().forEach(param -> {
 
-            try{
+            try {
                 switch (param.type()) {
                     case TYPE_STRING -> statement.setString(param.position(), (String) param.value());
                     case TYPE_INTEGER -> statement.setInt(param.position(), (int) param.value());
@@ -104,8 +92,7 @@ public class QueryCaller {
                     case TYPE_BIG_DECIMAL -> statement.setBigDecimal(param.position(), (BigDecimal) param.value());
                     case TYPE_DOUBLE -> statement.setDouble(param.position(), (double) param.value());
                 }
-            }
-            catch(SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 

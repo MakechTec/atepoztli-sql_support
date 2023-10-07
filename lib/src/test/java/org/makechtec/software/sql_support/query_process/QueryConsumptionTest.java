@@ -30,14 +30,14 @@ public class QueryConsumptionTest {
     @Test
     public void testUpdate() {
 
-      var statementInformation =
-              StatementInformation.builder()
-                      .setQueryString("SELECT * FROM names;")
-                      .build();
+        var statementInformation =
+                StatementInformation.builder()
+                        .setQueryString("SELECT * FROM names;")
+                        .build();
 
-      var caller = new QueryCaller(connectionInformation, statementInformation);
+        var caller = new QueryCaller(connectionInformation, statementInformation);
 
-      caller.callUpdate();
+        caller.callUpdate();
 
 
     }
@@ -55,22 +55,21 @@ public class QueryConsumptionTest {
 
         var results = new ArrayList<String>();
 
-        caller.call( resultSet -> {
+        caller.call(resultSet -> {
 
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 results.add(resultSet.getString("name"));
             }
 
         });
 
-        caller.getErrorMessages().forEach(log::info);
 
         assertFalse(results.isEmpty());
 
     }
 
     @Test
-    public void testPreparedUpdate(){
+    public void testPreparedUpdate() {
         var statementInformation =
                 StatementInformation.builder()
                         .setQueryString("SELECT * FROM names WHERE name = ?;")
@@ -84,7 +83,7 @@ public class QueryConsumptionTest {
     }
 
     @Test
-    public void testPreparedCall(){
+    public void testPreparedCall() {
         var statementInformation =
                 StatementInformation.builder()
                         .setQueryString("SELECT * FROM names WHERE name = ?;")
@@ -96,8 +95,8 @@ public class QueryConsumptionTest {
 
         var results = new ArrayList<String>();
 
-        caller.call( resultSet -> {
-            while(resultSet.next()){
+        caller.call(resultSet -> {
+            while (resultSet.next()) {
                 results.add(resultSet.getString("name"));
             }
         });

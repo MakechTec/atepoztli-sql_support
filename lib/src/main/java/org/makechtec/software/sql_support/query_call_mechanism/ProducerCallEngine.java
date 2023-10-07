@@ -17,30 +17,30 @@ public class ProducerCallEngine<P> {
         this.statementInformationBuilder.setPrepared(false);
     }
 
-    public ProducerCallEngine<P> setQueryString(String queryString){
+    public static <P> ProducerCallEngine<P> builder(ConnectionInformation connectionInformation) {
+        return new ProducerCallEngine<>(connectionInformation);
+    }
+
+    public ProducerCallEngine<P> setQueryString(String queryString) {
         this.statementInformationBuilder.setQueryString(queryString);
         return this;
     }
 
-    public ProducerCallEngine<P> isPrepared(){
+    public ProducerCallEngine<P> isPrepared() {
         this.statementInformationBuilder.setPrepared(true);
         return this;
     }
 
-    public ProducerCallEngine<P> addParamAtPosition(int position, Object value, ParamType type){
+    public ProducerCallEngine<P> addParamAtPosition(int position, Object value, ParamType type) {
         this.statementInformationBuilder.addParamAtPosition(position, value, type);
         return this;
     }
 
-    public P produce( ProducerByCall<P> producer ){
+    public P produce(ProducerByCall<P> producer) {
         var statement = this.statementInformationBuilder.build();
         var caller = new CallExecutor<P>(this.connectionInformation, statement);
 
         return caller.execute(producer);
-    }
-
-    public static <P> ProducerCallEngine<P> builder(ConnectionInformation connectionInformation){
-        return new ProducerCallEngine<>(connectionInformation);
     }
 
 
