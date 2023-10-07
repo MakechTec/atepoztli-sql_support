@@ -55,19 +55,4 @@ publishing {
         }
     }
 
-    repositories {
-
-        maven {
-            isAllowInsecureProtocol = true
-            url = uri("http://makechtec.online:8080/yolotli/package")
-            credentials {
-                username = System.getenv("MAKECH_USERNAME")
-                password = System.getenv("MAKECH_PASSWORD")
-            }
-            authentication {
-                create<BasicAuthentication>("basic")
-            }
-        }
-
-    }
 }
