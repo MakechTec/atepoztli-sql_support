@@ -11,7 +11,7 @@ __Maven__
     <dependency>
         <groupId>org.makechtec.software</groupId>
         <artifactId>sql_support</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
     </dependency>
 
 __Gradle__
@@ -59,7 +59,7 @@ Dto.java
 
 ### Releases history ###
 
-2.0.0 Added PostgreSQL support 
+2.1.0 Added PostgreSQL support 
 
 1.4.2 Fixing bug related to com.mysql.cj.jdbc.Driver class load
 
