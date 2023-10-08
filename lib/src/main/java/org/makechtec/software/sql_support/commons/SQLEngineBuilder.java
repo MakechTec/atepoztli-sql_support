@@ -15,4 +15,6 @@ public interface SQLEngineBuilder<T> {
 
     T run(ProducerByCall<T> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException;
 
+    void update() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException;
+
 }

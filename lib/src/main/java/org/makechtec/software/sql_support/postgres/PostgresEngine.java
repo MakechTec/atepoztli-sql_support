@@ -45,4 +45,11 @@ public class PostgresEngine<T> implements SQLEngineBuilder<T> {
         return caller.execute(producer);
     }
 
+    @Override
+    public void update() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        var statement = this.statementInformationBuilder.build();
+        var caller = new PostgresCaller<T>(this.connectionInformation, statement);
+        caller.update();
+    }
+
 }

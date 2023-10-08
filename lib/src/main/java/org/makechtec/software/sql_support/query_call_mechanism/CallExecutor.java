@@ -56,6 +56,29 @@ public class CallExecutor<P> {
         return wrapper.reservedSpace;
     }
 
+    public void update() {
+
+        var support = new SQLSupport(connectionInformation);
+
+        support.runSQLQuery(connection -> {
+            if (statementInformation.isPrepared()) {
+                var preparedStatement = this.createPreparedStatement(statementInformation, connection);
+
+                preparedStatement.executeUpdate();
+
+                preparedStatement.close();
+
+            } else {
+                var statement = connection.createStatement();
+
+                statement.executeUpdate(statementInformation.getQueryString());
+
+                statement.close();
+            }
+        });
+
+    }
+
     private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection) throws SQLException {
         var statement = connection.prepareStatement(statementInformation.getQueryString());
 

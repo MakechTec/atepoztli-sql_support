@@ -43,4 +43,14 @@ public class MysqlEngine<T> implements SQLEngineBuilder<T> {
 
         return caller.execute(producer);
     }
+
+    @Override
+    public void update() {
+        var statement = this.statementInformationBuilder.build();
+        var caller = new CallExecutor<T>(this.connectionInformation, statement);
+
+        caller.update();
+    }
+
+
 }

@@ -67,6 +67,35 @@ public class PostgresCaller<T> {
 
     }
 
+    public void update() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+
+        try {
+
+            var connection = connectionFactory.openNewConnection(connectionInformation);
+
+            if (statementInformation.isPrepared()) {
+                var statement = this.createPreparedStatement(statementInformation, connection);
+                statement.executeUpdate();
+
+                statement.close();
+            } else {
+                var statement = connection.createStatement();
+
+                statement.executeUpdate(statementInformation.getQueryString());
+
+                statement.close();
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            LOG.severe("There was an error executing the SQL query with the specified statement information");
+            LOG.severe("or running the producer action");
+            LOG.severe("by calling org.makechtec.software.sql_support.postgres.PostgresCaller");
+            throw e;
+        }
+    }
+
     private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection) throws SQLException {
 
         try {
