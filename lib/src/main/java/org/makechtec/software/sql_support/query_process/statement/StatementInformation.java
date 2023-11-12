@@ -5,23 +5,25 @@ import java.util.Set;
 
 public class StatementInformation {
 
+    private final Set<QueryParam<?>> params;
     private boolean isPrepared;
     private String queryString;
-    private final Set<QueryParam<?>> params;
 
     public StatementInformation() {
         this.params = new HashSet<>();
+    }
+
+    public static StatementInformationBuilder builder() {
+        return new StatementInformationBuilder();
     }
 
     public String getQueryString() {
         return queryString;
     }
 
-
     public boolean isPrepared() {
         return isPrepared;
     }
-
 
     public Set<QueryParam<?>> getParams() {
         return params;
@@ -31,16 +33,11 @@ public class StatementInformation {
         this.params.add(param);
     }
 
-    public static StatementInformationBuilder builder(){
-        return new StatementInformationBuilder();
-    }
-
-
     public static class StatementInformationBuilder {
         private final StatementInformation statementInformation;
 
 
-        private StatementInformationBuilder(){
+        private StatementInformationBuilder() {
             this.statementInformation = new StatementInformation();
         }
 
@@ -50,18 +47,18 @@ public class StatementInformation {
             return this;
         }
 
-        public StatementInformationBuilder setQueryString(String queryString){
+        public StatementInformationBuilder setQueryString(String queryString) {
             this.statementInformation.queryString = queryString;
             return this;
         }
 
-        public <T> StatementInformationBuilder addParamAtPosition(int position, T value, ParamType type){
+        public <T> StatementInformationBuilder addParamAtPosition(int position, T value, ParamType type) {
             var param = new QueryParam<>(position, value, type);
             this.statementInformation.addParam(param);
             return this;
         }
 
-        public StatementInformation build(){
+        public StatementInformation build() {
             return this.statementInformation;
         }
 
