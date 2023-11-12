@@ -2,11 +2,11 @@
 
 - java 17+
 - MySQL as database
-- PostgreSQL ad database [link to docs](/docs/postgres.md)
+- PostgreSQL as database [link to docs](/docs/postgres.md)
 
 ## Dependency ##
 
-__Maven__
+__Maven dependency__
 
     <dependency>
         <groupId>org.makechtec.software</groupId>
@@ -14,42 +14,51 @@ __Maven__
         <version>2.1.0</version>
     </dependency>
 
-__Gradle__
+__Gradle for groovy__
 
-    implementation 'org.makechtec.software:sql_support:1.4.2'
+    implementation 'org.makechtec.software:sql_support:2.1.0'
+
+__Gradle for groovy__
+
+    implementation ("org.makechtec.software:sql_support:2.1.0")
 
 ## Usage ##
 
 __Example producing a Dto record__
 
     var connectionCredentials = new ConnectionInformation(
-                "user",
-                "pass",
-                "host",
-                "3306",
-                "database"
-        );
+        "user",
+        "pass",
+        "host",
+        "3306",
+        "database"
+    );
+
+    var postgresEngine = new PostgresEngine<Dto>(connectionCredentials);
 
     ProducerByCall<Dto> producer =
-                resultSet -> {
+            resultSet -> {
 
-                    Dto dto = null;
-                    while(resultSet.next()){
-                        dto = new Dto(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name")
-                        );
-                    }
+                Dto dto = null;
+                while (resultSet.next()) {
+                    dto = new Dto(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name")
+                    );
+                }
 
-                    return dto;
-                };
+                return dto;
+            };
 
-    var dto =
-            ProducerCallEngine.<Dto>builder(connectionCredentials)
-                                .isPrepared()
-                                .setQueryString("CALL dto_by_id(?)")
-                                .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
-                                .produce(producer);
+    try {
+        var result =
+                postgresEngine.isPrepared()
+                        .queryString("CALL dto_by_id(?)")
+                        .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
+                        .run(producer);
+    } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        e.printStackTrace();
+    }
 
     assertFalse(dto.name().isEmpty());
 
