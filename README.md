@@ -18,7 +18,7 @@ __Gradle for groovy__
 
     implementation 'org.makechtec.software:sql_support:2.1.0'
 
-__Gradle for groovy__
+__Gradle for kotlin__
 
     implementation ("org.makechtec.software:sql_support:2.1.0")
 
