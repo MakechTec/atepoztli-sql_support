@@ -92,6 +92,8 @@ public class CallExecutor<P> {
                     case TYPE_LONG -> statement.setLong(param.position(), (long) param.value());
                     case TYPE_BIG_DECIMAL -> statement.setBigDecimal(param.position(), (BigDecimal) param.value());
                     case TYPE_DOUBLE -> statement.setDouble(param.position(), (double) param.value());
+                    case TYPE_BINARY_STRING -> statement.setBytes(param.position(), (byte[]) param.value());
+                    case TYPE_BINARY_SINGLE -> statement.setByte(param.position(), (byte) param.value());
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
