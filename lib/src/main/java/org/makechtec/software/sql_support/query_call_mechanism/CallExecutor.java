@@ -5,13 +5,13 @@ import org.makechtec.software.sql_support.SQLSupport;
 import org.makechtec.software.sql_support.query_process.statement.StatementInformation;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class CallExecutor<P> {
 
+    private static final Logger LOG = Logger.getLogger(CallExecutor.class.getName());
     private final ConnectionInformation connectionInformation;
     private final StatementInformation statementInformation;
 
@@ -86,24 +86,22 @@ public class CallExecutor<P> {
         var wrapper = new Wrapper<Long>();
 
         support.runSQLQuery(connection -> {
-            if (statementInformation.isPrepared()) {
-                var preparedStatement = this.createPreparedStatement(statementInformation, connection);
 
-                preparedStatement.executeUpdate();
-
-                wrapper.reservedSpace = producer.produce(preparedStatement.getGeneratedKeys());
-
-                preparedStatement.close();
-
-            } else {
-                var statement = connection.createStatement();
-
-                statement.executeUpdate(statementInformation.getQueryString());
-
-                wrapper.reservedSpace = producer.produce(statement.getGeneratedKeys());
-
-                statement.close();
+            if (!statementInformation.isPrepared()) {
+                LOG.severe("Statement is not prepared but required when trying to get generated key");
+                wrapper.reservedSpace = 0L;
+                return;
             }
+
+            var preparedStatement = this.createPreparedStatement(statementInformation, connection, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.executeUpdate();
+
+            wrapper.reservedSpace = producer.produce(preparedStatement.getGeneratedKeys());
+
+            preparedStatement.close();
+
+
         });
 
         return wrapper.reservedSpace;
@@ -112,6 +110,22 @@ public class CallExecutor<P> {
     private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection) throws SQLException {
         var statement = connection.prepareStatement(statementInformation.getQueryString());
 
+        setUpParams(statementInformation, statement);
+
+        return statement;
+    }
+
+
+
+    private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection, int statementOption) throws SQLException {
+        var statement = connection.prepareStatement(statementInformation.getQueryString(), statementOption);
+
+        setUpParams(statementInformation, statement);
+
+        return statement;
+    }
+
+    private static void setUpParams(StatementInformation statementInformation, PreparedStatement statement) {
         statementInformation.getParams().forEach(param -> {
 
             try {
@@ -126,12 +140,10 @@ public class CallExecutor<P> {
                     case TYPE_BINARY_SINGLE -> statement.setByte(param.position(), (byte) param.value());
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOG.warning(e.getMessage());
             }
 
         });
-
-        return statement;
     }
 
     private static class Wrapper<P> {
