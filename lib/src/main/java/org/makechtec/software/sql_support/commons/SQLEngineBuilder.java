@@ -17,4 +17,5 @@ public interface SQLEngineBuilder<T> {
 
     void update() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException;
 
+    long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException;
 }

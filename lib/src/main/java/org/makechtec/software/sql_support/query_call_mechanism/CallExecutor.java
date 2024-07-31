@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class CallExecutor<P> {
 
@@ -77,6 +78,35 @@ public class CallExecutor<P> {
             }
         });
 
+    }
+
+    public long updateWithGeneratedKey(ProducerByCall<Long> producer) {
+        var support = new SQLSupport(connectionInformation);
+
+        var wrapper = new Wrapper<Long>();
+
+        support.runSQLQuery(connection -> {
+            if (statementInformation.isPrepared()) {
+                var preparedStatement = this.createPreparedStatement(statementInformation, connection);
+
+                preparedStatement.executeUpdate();
+
+                wrapper.reservedSpace = producer.produce(preparedStatement.getGeneratedKeys());
+
+                preparedStatement.close();
+
+            } else {
+                var statement = connection.createStatement();
+
+                statement.executeUpdate(statementInformation.getQueryString());
+
+                wrapper.reservedSpace = producer.produce(statement.getGeneratedKeys());
+
+                statement.close();
+            }
+        });
+
+        return wrapper.reservedSpace;
     }
 
     private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection) throws SQLException {

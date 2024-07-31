@@ -7,6 +7,8 @@ import org.makechtec.software.sql_support.query_call_mechanism.ProducerByCall;
 import org.makechtec.software.sql_support.query_process.statement.ParamType;
 import org.makechtec.software.sql_support.query_process.statement.StatementInformation;
 
+import java.sql.SQLException;
+
 public class MysqlEngine<T> implements SQLEngineBuilder<T> {
 
     private final StatementInformation.StatementInformationBuilder statementInformationBuilder;
@@ -50,6 +52,14 @@ public class MysqlEngine<T> implements SQLEngineBuilder<T> {
         var caller = new CallExecutor<T>(this.connectionInformation, statement);
 
         caller.update();
+    }
+
+    @Override
+    public long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        var statement = this.statementInformationBuilder.build();
+        var caller = new CallExecutor<T>(this.connectionInformation, statement);
+
+        return caller.updateWithGeneratedKey(producer);
     }
 
 
