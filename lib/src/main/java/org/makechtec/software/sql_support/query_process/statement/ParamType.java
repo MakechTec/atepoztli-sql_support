@@ -7,6 +7,8 @@ public enum ParamType {
     TYPE_FLOAT,
     TYPE_LONG,
     TYPE_BIG_DECIMAL,
-    TYPE_DOUBLE
+    TYPE_DOUBLE,
+    TYPE_BINARY_STRING,
+    TYPE_BINARY_SINGLE
 
 }
