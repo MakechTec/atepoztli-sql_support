@@ -1,52 +1,184 @@
 <!DOCTYPE html SYSTEM "about:legacy-compat">
-<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex"><meta name="built-on" content="2024-05-05T11:13:06.764941"><title>postgres_connection | Instance Name</title><script type="application/json" id="virtual-toc-data">[{"id":"before-you-start","level":0,"title":"Before you start","anchor":"#before-you-start"},{"id":"prepare-database-connection-information","level":0,"title":"Prepare database connection information","anchor":"#prepare-database-connection-information"},{"id":"connect-and-handle-result","level":0,"title":"Connect and handle result","anchor":"#connect-and-handle-result"},{"id":"what-learned","level":0,"title":"What you\u0027ve learned","anchor":"#what-learned"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.css" rel="stylesheet"><meta name="msapplication-TileColor" content="#000000"><link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="postgres_connection | Instance Name"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="Instance Name Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="writerside-documentation/postgres-connection.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="postgres_connection | Instance Name"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
-    "@context": "http://schema.org",
-    "@type": "WebPage",
-    "@id": "writerside-documentation/postgres-connection.html#webpage",
-    "url": "writerside-documentation/postgres-connection.html",
-    "name": "postgres_connection | Instance Name",
-    "description": "",
-    "image": "",
-    "inLanguage":"en-US"
-}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
-    "@type": "WebSite",
-    "@id": "writerside-documentation/#website",
-    "url": "writerside-documentation/",
-    "name": "Instance Name Help"
-}</script><!-- End Schema.org --></head><body data-id="postgres-connection" data-main-title="postgres_connection" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs=""><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Instance Name  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="postgres-connection" id="postgres-connection.md">postgres_connection</h1><p id="k2c4a6_1988">This tutorial will show how to connect to a PostgreSQL database using sql support library.</p><ul class="list _bullet" id="k2c4a6_1989"><li class="list__item" id="k2c4a6_1990"><p>Before you start</p></li><li class="list__item" id="k2c4a6_1991"><p>Prepare database connection information</p></li><li class="list__item" id="k2c4a6_1992"><p>Connect and handle result</p></li></ul><section class="chapter"><h2 id="before-you-start" data-toc="before-you-start">Before you start</h2><p id="k2c4a6_1993">Please get following information:</p><p id="k2c4a6_1994">Make sure that you have:</p><ul class="list _bullet" id="k2c4a6_1995"><li class="list__item" id="k2c4a6_1996"><p>Database server IP</p></li><li class="list__item" id="k2c4a6_1997"><p>Database port</p></li><li class="list__item" id="k2c4a6_1998"><p>Database user</p></li><li class="list__item" id="k2c4a6_1999"><p>Database password</p></li><li class="list__item" id="k2c4a6_2000"><p>Database name</p></li><li class="list__item" id="k2c4a6_2001"><p>java 17 or earlier</p></li></ul></section><section class="chapter"><h2 id="prepare-database-connection-information" data-toc="prepare-database-connection-information">Prepare database connection information</h2><p id="k2c4a6_2002">Put the connection information using a ConnectionInformation object:</p><div class="code-block" data-lang="java">
-   var connectionCredentials = new ConnectionInformation(
-     &quot;user&quot;,
-     &quot;pass&quot;,
-     &quot;host&quot;,
-     &quot;3306&quot;,
-     &quot;database&quot;
-   );
-</div></section><section class="chapter"><h2 id="connect-and-handle-result" data-toc="connect-and-handle-result">Connect and handle result</h2><div class="code-block" data-lang="java">
-   var postgresEngine = new PostgresEngine&lt;Dto&gt;(connectionCredentials);
+<html data-preset="contrast" data-primary-color="#307FFF" lang="en-US">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta charset="UTF-8">
+    <meta content="noindex" name="robots">
+    <meta content="2024-05-05T11:13:06.764941" name="built-on">
+    <title>postgres_connection | Instance Name</title>
+    <script id="virtual-toc-data" type="application/json">[
+        {
+            "id": "before-you-start",
+            "level": 0,
+            "title": "Before you start",
+            "anchor": "#before-you-start"
+        },
+        {
+            "id": "prepare-database-connection-information",
+            "level": 0,
+            "title": "Prepare database connection information",
+            "anchor": "#prepare-database-connection-information"
+        },
+        {
+            "id": "connect-and-handle-result",
+            "level": 0,
+            "title": "Connect and handle result",
+            "anchor": "#connect-and-handle-result"
+        },
+        {
+            "id": "what-learned",
+            "level": 0,
+            "title": "What you\u0027ve learned",
+            "anchor": "#what-learned"
+        }
+    ]</script>
+    <script id="topic-shortcuts" type="application/json"></script>
+    <link href="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.css" rel="stylesheet">
+    <meta content="#000000" name="msapplication-TileColor">
+    <link href="https://jetbrains.com/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="https://jetbrains.com/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="https://jetbrains.com/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"
+          name="msapplication-TileImage">
+    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"
+          name="msapplication-square70x70logo">
+    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"
+          name="msapplication-square150x150logo">
+    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"
+          name="msapplication-wide310x150logo">
+    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"
+          name="msapplication-square310x310logo">
+    <meta content="" name="image"><!-- Open Graph -->
+    <meta content="postgres_connection | Instance Name" property="og:title">
+    <meta content="" property="og:description">
+    <meta content="" property="og:image">
+    <meta content="Instance Name Help" property="og:site_name">
+    <meta content="website" property="og:type">
+    <meta content="en_US" property="og:locale">
+    <meta content="writerside-documentation/postgres-connection.html" property="og:url"><!-- End Open Graph -->
+    <!-- Twitter Card -->
+    <meta content="summary_large_image" name="twitter:card">
+    <meta content="" name="twitter:site">
+    <meta content="postgres_connection | Instance Name" name="twitter:title">
+    <meta content="" name="twitter:description">
+    <meta content="" name="twitter:creator">
+    <meta content="" name="twitter:image:src"><!-- End Twitter Card --><!-- Schema.org WebPage -->
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "WebPage",
+        "@id": "writerside-documentation/postgres-connection.html#webpage",
+        "url": "writerside-documentation/postgres-connection.html",
+        "name": "postgres_connection | Instance Name",
+        "description": "",
+        "image": "",
+        "inLanguage": "en-US"
+    }</script><!-- End Schema.org --><!-- Schema.org WebSite -->
+    <script type="application/ld+json">{
+        "@type": "WebSite",
+        "@id": "writerside-documentation/#website",
+        "url": "writerside-documentation/",
+        "name": "Instance Name Help"
+    }</script><!-- End Schema.org --></head>
+<body data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-breadcrumbs=""
+      data-id="postgres-connection" data-main-title="postgres_connection" data-template="article">
+<div class="wrapper">
+    <main class="panel _main">
+        <header class="panel__header">
+            <div class="container"><h3>Instance Name Help</h3>
+                <div class="panel-trigger"></div>
+            </div>
+        </header>
+        <section class="panel__content">
+            <div class="container">
+                <article class="article" data-shortcut-switcher="inactive"><h1 data-toc="postgres-connection"
+                                                                               id="postgres-connection.md">
+                    postgres_connection</h1>
+                    <p id="k2c4a6_1988">This tutorial will show how to connect to a PostgreSQL database using sql
+                        support library.</p>
+                    <ul class="list _bullet" id="k2c4a6_1989">
+                        <li class="list__item" id="k2c4a6_1990"><p>Before you start</p></li>
+                        <li class="list__item" id="k2c4a6_1991"><p>Prepare database connection information</p></li>
+                        <li class="list__item" id="k2c4a6_1992"><p>Connect and handle result</p></li>
+                    </ul>
+                    <section class="chapter"><h2 data-toc="before-you-start" id="before-you-start">Before you start</h2>
+                        <p id="k2c4a6_1993">Please get following information:</p>
+                        <p id="k2c4a6_1994">Make sure that you have:</p>
+                        <ul class="list _bullet" id="k2c4a6_1995">
+                            <li class="list__item" id="k2c4a6_1996"><p>Database server IP</p></li>
+                            <li class="list__item" id="k2c4a6_1997"><p>Database port</p></li>
+                            <li class="list__item" id="k2c4a6_1998"><p>Database user</p></li>
+                            <li class="list__item" id="k2c4a6_1999"><p>Database password</p></li>
+                            <li class="list__item" id="k2c4a6_2000"><p>Database name</p></li>
+                            <li class="list__item" id="k2c4a6_2001"><p>java 17 or earlier</p></li>
+                        </ul>
+                    </section>
+                    <section class="chapter"><h2 data-toc="prepare-database-connection-information"
+                                                 id="prepare-database-connection-information">Prepare database
+                        connection information</h2>
+                        <p id="k2c4a6_2002">Put the connection information using a ConnectionInformation object:</p>
+                        <div class="code-block" data-lang="java">
+                            var connectionCredentials = new ConnectionInformation(
+                            &quot;user&quot;,
+                            &quot;pass&quot;,
+                            &quot;host&quot;,
+                            &quot;3306&quot;,
+                            &quot;database&quot;
+                            );
+                        </div>
+                    </section>
+                    <section class="chapter"><h2 data-toc="connect-and-handle-result" id="connect-and-handle-result">
+                        Connect and handle result</h2>
+                        <div class="code-block" data-lang="java">
+                            var postgresEngine = new PostgresEngine&lt;Dto&gt;(connectionCredentials);
 
-    ProducerByCall&lt;Dto&gt; producer =
-            resultSet -&gt; {
+                            ProducerByCall&lt;Dto&gt; producer =
+                            resultSet -&gt; {
 
-                Dto dto = null;
-                while (resultSet.next()) {
-                    dto = new Dto(
+                            Dto dto = null;
+                            while (resultSet.next()) {
+                            dto = new Dto(
                             resultSet.getInt(&quot;id&quot;),
                             resultSet.getString(&quot;name&quot;)
-                    );
-                }
+                            );
+                            }
 
-                return dto;
-            };
+                            return dto;
+                            };
 
-    try {
-        var result =
-                postgresEngine.isPrepared()
-                        .queryString(&quot;CALL dto_by_id(?)&quot;)
-                        .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
-                        .run(producer);
-    } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-        e.printStackTrace();
-    }
-</div><p id="k2c4a6_2005">In the Dto.java file</p><div class="code-block" data-lang="java">
-   public record Dto(int id, String name) {}
-</div><p id="k2c4a6_2007">In the above code you have seen first set the flag if you will put params at the prepared statement, this is the &quot;isPrepared()&quot;.</p><p id="k2c4a6_2008">Then add corresponding queryString and each param with corresponding param type.</p><p id="k2c4a6_2009">Finally pass the resulset consumer function to handle the result.</p></section><section class="chapter"><h2 id="what-learned" data-toc="what-learned">What you've learned</h2><p id="k2c4a6_2010">Simply set connection information at the start and call the query.</p></section><div class="last-modified">Last modified: 05 mayo 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="starter.html" class="navigation-links__prev">Sql support</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.js"></script></body></html>
+                            try {
+                            var result =
+                            postgresEngine.isPrepared()
+                            .queryString(&quot;CALL dto_by_id(?)&quot;)
+                            .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
+                            .run(producer);
+                            } catch (SQLException | ClassNotFoundException | InstantiationException |
+                            IllegalAccessException e) {
+                            e.printStackTrace();
+                            }
+                        </div>
+                        <p id="k2c4a6_2005">In the Dto.java file</p>
+                        <div class="code-block" data-lang="java">
+                            public record Dto(int id, String name) {}
+                        </div>
+                        <p id="k2c4a6_2007">In the above code you have seen first set the flag if you will put params at
+                            the prepared statement, this is the &quot;isPrepared()&quot;.</p>
+                        <p id="k2c4a6_2008">Then add corresponding queryString and each param with corresponding param
+                            type.</p>
+                        <p id="k2c4a6_2009">Finally pass the resulset consumer function to handle the result.</p>
+                    </section>
+                    <section class="chapter"><h2 data-toc="what-learned" id="what-learned">What you've learned</h2>
+                        <p id="k2c4a6_2010">Simply set connection information at the start and call the query.</p>
+                    </section>
+                    <div class="last-modified">Last modified: 05 mayo 2024</div>
+                    <div data-feedback-placeholder="true"></div>
+                    <div class="navigation-links _bottom"><a class="navigation-links__prev" href="starter.html">Sql
+                        support</a></div>
+                </article>
+                <div id="disqus_thread"></div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.js"></script>
+</body>
+</html>

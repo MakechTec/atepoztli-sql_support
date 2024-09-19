@@ -13,7 +13,7 @@ public class WithPoolEngine<T> implements SQLEngineBuilder<T> {
     private final StatementInformation.StatementInformationBuilder statementInformationBuilder;
     private final ConnectionPool connectionPool;
 
-    public WithPoolEngine(ConnectionPool connectionPool){
+    public WithPoolEngine(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         this.statementInformationBuilder = StatementInformation.builder();
     }

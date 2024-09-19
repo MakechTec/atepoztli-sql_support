@@ -5,10 +5,8 @@ import org.makechtec.software.sql_support.ConnectionInformation;
 import org.makechtec.software.sql_support.connection_pool.PooledConnection;
 import org.makechtec.software.sql_support.connection_pool.PooledConnectionCreator;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public class MySQLPooledConnectionCreator implements PooledConnectionCreator {
 

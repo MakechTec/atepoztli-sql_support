@@ -68,7 +68,7 @@ Dto.java
 
 ### Releases history ###
 
-2.1.0 Added PostgreSQL support 
+2.1.0 Added PostgreSQL support
 
 1.4.2 Fixing bug related to com.mysql.cj.jdbc.Driver class load
 

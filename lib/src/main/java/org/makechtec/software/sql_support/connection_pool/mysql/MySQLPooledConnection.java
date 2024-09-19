@@ -5,7 +5,6 @@ import org.makechtec.software.sql_support.connection_pool.PooledConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public record MySQLPooledConnection(Connection nativeConnection) implements PooledConnection {
 

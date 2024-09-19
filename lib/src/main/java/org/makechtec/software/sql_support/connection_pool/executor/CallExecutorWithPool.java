@@ -21,6 +21,27 @@ public class CallExecutorWithPool<P> {
         this.statementInformation = statementInformation;
     }
 
+    private static void setUpParams(StatementInformation statementInformation, PreparedStatement statement) {
+        statementInformation.getParams().forEach(param -> {
+
+            try {
+                switch (param.type()) {
+                    case TYPE_STRING -> statement.setString(param.position(), (String) param.value());
+                    case TYPE_INTEGER -> statement.setInt(param.position(), (int) param.value());
+                    case TYPE_FLOAT -> statement.setFloat(param.position(), (float) param.value());
+                    case TYPE_LONG -> statement.setLong(param.position(), (long) param.value());
+                    case TYPE_BIG_DECIMAL -> statement.setBigDecimal(param.position(), (BigDecimal) param.value());
+                    case TYPE_DOUBLE -> statement.setDouble(param.position(), (double) param.value());
+                    case TYPE_BINARY_STRING -> statement.setBytes(param.position(), (byte[]) param.value());
+                    case TYPE_BINARY_SINGLE -> statement.setByte(param.position(), (byte) param.value());
+                }
+            } catch (SQLException e) {
+                LOG.warning(e.getMessage());
+            }
+
+        });
+    }
+
     public P execute(ProducerByCall<P> producer) throws SQLException {
 
         CallExecutorWithPool.Wrapper<P> wrapper = new CallExecutorWithPool.Wrapper<>();
@@ -119,35 +140,12 @@ public class CallExecutorWithPool<P> {
         return statement;
     }
 
-
-
     private PreparedStatement createPreparedStatement(StatementInformation statementInformation, Connection connection, int statementOption) throws SQLException {
         var statement = connection.prepareStatement(statementInformation.getQueryString(), statementOption);
 
         setUpParams(statementInformation, statement);
 
         return statement;
-    }
-
-    private static void setUpParams(StatementInformation statementInformation, PreparedStatement statement) {
-        statementInformation.getParams().forEach(param -> {
-
-            try {
-                switch (param.type()) {
-                    case TYPE_STRING -> statement.setString(param.position(), (String) param.value());
-                    case TYPE_INTEGER -> statement.setInt(param.position(), (int) param.value());
-                    case TYPE_FLOAT -> statement.setFloat(param.position(), (float) param.value());
-                    case TYPE_LONG -> statement.setLong(param.position(), (long) param.value());
-                    case TYPE_BIG_DECIMAL -> statement.setBigDecimal(param.position(), (BigDecimal) param.value());
-                    case TYPE_DOUBLE -> statement.setDouble(param.position(), (double) param.value());
-                    case TYPE_BINARY_STRING -> statement.setBytes(param.position(), (byte[]) param.value());
-                    case TYPE_BINARY_SINGLE -> statement.setByte(param.position(), (byte) param.value());
-                }
-            } catch (SQLException e) {
-                LOG.warning(e.getMessage());
-            }
-
-        });
     }
 
     private static class Wrapper<P> {

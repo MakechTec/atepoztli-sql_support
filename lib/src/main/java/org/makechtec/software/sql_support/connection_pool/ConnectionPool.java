@@ -1,10 +1,8 @@
 package org.makechtec.software.sql_support.connection_pool;
 
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.stream.IntStream;
 
 public class ConnectionPool {
 
@@ -19,12 +17,12 @@ public class ConnectionPool {
 
     public void boot() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        for(int i = 0; i < quantityOfConnections; i++) {
+        for (int i = 0; i < quantityOfConnections; i++) {
 
 
             PooledConnection connection = creator.create();
 
-            if(!connection.isUsable()){
+            if (!connection.isUsable()) {
                 throw new RuntimeException("Connection is not usable");
             }
 
@@ -43,7 +41,7 @@ public class ConnectionPool {
             } else {
                 connection = deque.takeLast();
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             return;
         }
 
@@ -58,7 +56,7 @@ public class ConnectionPool {
 
     }
 
-    public void giveBack(PooledConnection pooledConnection){
+    public void giveBack(PooledConnection pooledConnection) {
         deque.add(pooledConnection);
     }
 

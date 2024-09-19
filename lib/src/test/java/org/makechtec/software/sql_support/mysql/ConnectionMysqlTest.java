@@ -16,7 +16,7 @@ public class ConnectionMysqlTest {
         )))
                 .queryString("SELECT * FROM boms;")
                 .run(resultSet -> {
-                    while(resultSet.next()) {
+                    while (resultSet.next()) {
                         System.out.println(resultSet.getString("id"));
                     }
                     return null;
