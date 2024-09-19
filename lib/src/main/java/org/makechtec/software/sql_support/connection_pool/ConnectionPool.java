@@ -60,7 +60,11 @@ public class ConnectionPool {
         deque.add(pooledConnection);
     }
 
-    public void regenerateConnection() throws SQLException {
+    public int availableConnections() {
+        return deque.size();
+    }
+
+    private void regenerateConnection() throws SQLException {
 
         try {
             deque.add(creator.create());

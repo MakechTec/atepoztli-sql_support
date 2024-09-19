@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -131,6 +132,107 @@ class WithPoolEngineTest {
 
         return connectionMock;
     }
+
+    @Test
+    void errorBootSQLException() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        if(Objects.isNull(System.getenv("isRealConnection")) || !System.getenv("isRealConnection").equals("true")) {
+            System.out.print("Disabled realConnection() test because is not enabled the isRealConnection env property to true");
+            return;
+        }
+
+        var connectionInformation = new ConnectionInformation(
+                "test",
+                "test",
+                "localhost",
+                "3306",
+                "non_existing"
+        );
+
+        var pool = new ConnectionPool(4, new MySQLPooledConnectionCreator(connectionInformation));
+
+        assertThrows(SQLException.class, pool::boot);
+
+    }
+
+    @Test
+    void errorInSQL() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        if(Objects.isNull(System.getenv("isRealConnection")) || !System.getenv("isRealConnection").equals("true")) {
+            System.out.print("Disabled realConnection() test because is not enabled the isRealConnection env property to true");
+            return;
+        }
+
+        var connectionInformation = new ConnectionInformation(
+                "test",
+                "test",
+                "localhost",
+                "3306",
+                "test"
+        );
+
+        var pool = new ConnectionPool(4, new MySQLPooledConnectionCreator(connectionInformation));
+
+        pool.boot();
+
+        assertThrows(SQLException.class, () -> {
+            (new WithPoolEngine<Dto>(pool))
+                    .queryString("SELECT id, name FROM non_existing_table")
+                    .run(resultSet -> {
+                        resultSet.next();
+
+                        return new Dto(resultSet.getInt("id"), resultSet.getString("name"));
+                    });
+        });
+
+        assertEquals(4, pool.availableConnections());
+
+    }
+
+    @Test
+    void regeneratedClosed() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        if(Objects.isNull(System.getenv("isRealConnection")) || !System.getenv("isRealConnection").equals("true")) {
+            System.out.print("Disabled realConnection() test because is not enabled the isRealConnection env property to true");
+            return;
+        }
+
+        var connectionInformation = new ConnectionInformation(
+                "test",
+                "test",
+                "localhost",
+                "3306",
+                "test"
+        );
+
+        var pool = new ConnectionPool(1, new MySQLPooledConnectionCreator(connectionInformation));
+
+        pool.boot();
+
+        assertThrows(SQLException.class, () -> {
+            (new WithPoolEngine<Dto>(pool))
+                    .queryString("SELECT id, name FROM non_existing_table")
+                    .run(resultSet -> {
+                        resultSet.next();
+
+                        return new Dto(resultSet.getInt("id"), resultSet.getString("name"));
+                    });
+        });
+
+        assertEquals(1, pool.availableConnections());
+
+        var result =
+                (new WithPoolEngine<Dto>(pool))
+                        .queryString("SELECT id, name FROM test")
+                        .run(resultSet -> {
+                            resultSet.next();
+
+                            return new Dto(resultSet.getInt("id"), resultSet.getString("name"));
+                        });
+
+        assertEquals(1, result.id);
+        assertEquals("john", result.name);
+
+    }
+
 
     @Test
     void realConnection() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
