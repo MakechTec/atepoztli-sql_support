@@ -66,7 +66,43 @@ Dto.java
 
     public record Dto(int id, String name) {}
 
+## Pool ##
+
+To use the connection pool functionality there is an example:
+
+    var connectionInformation = new ConnectionInformation(
+                "test",
+                "test",
+                "localhost",
+                "3306",
+                "test"
+        );
+
+    var pool = new ConnectionPool(4, new MySQLPooledConnectionCreator(connectionInformation));
+
+
+    pool.boot();
+
+    record Dto(int id, String name) {}
+
+    var result =
+        (new WithPoolEngine<Dto>(pool))
+                        .queryString("SELECT * FROM test")
+                        .run(resultSet -> {
+                        resultSet.next();
+
+                            return new Dto(resultSet.getInt("id"), resultSet.getString("name"));
+                        });
+
+For Postgres use same code as before but change the connection creator:
+
+    var pool = new ConnectionPool(4, new PostgresPooledConnectionCreator(connectionInformation));
+
+And that's it!!
+
 ### Releases history ###
+
+3.0.0-beta Added connection pool functionality
 
 2.1.0 Added PostgreSQL support
 

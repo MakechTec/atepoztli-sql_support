@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public record MySQLPooledConnection(Connection nativeConnection) implements PooledConnection {
 
-    private static final String LIGHTWEIGHT_QUERY = "SELECT 1";
+    private static final String LIGHTWEIGHT_QUERY = "SELECT 1;";
 
 
     @Override
