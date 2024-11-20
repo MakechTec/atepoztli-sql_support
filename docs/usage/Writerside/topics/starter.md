@@ -1,108 +1,79 @@
-# Sql support
+# Starter
 
-## Requirements ##
+<!--Writerside adds this topic when you create a new documentation project.
+You can use it as a sandbox to play with Writerside features, and remove it from the TOC when you don't need it anymore.-->
 
-- java 17+
-- MySQL as database
-- PostgreSQL as database [link to docs](postgres-connection.md)
+## Add new topics
+You can create empty topics, or choose a template for different types of content that contains some boilerplate structure to help you get started:
 
-### Dependency ###
+![Create new topic options](new_topic_options.png){ width=290 }{border-effect=line}
 
-There are the dependecy tags
+## Write content
+%product% supports two types of markup: Markdown and XML.
+When you create a new help article, you can choose between two topic types, but this doesn't mean you have to stick to a single format.
+You can author content in Markdown and extend it with semantic attributes or inject entire XML elements.
+
+## Inject XML
+For example, this is how you inject a procedure:
+
+<procedure title="Inject a procedure" id="inject-a-procedure">
+    <step>
+        <p>Start typing and select a procedure type from the completion suggestions:</p>
+        <img src="completion_procedure.png" alt="completion suggestions for procedure" border-effect="line"/>
+    </step>
+    <step>
+        <p>Press <shortcut>Tab</shortcut> or <shortcut>Enter</shortcut> to insert the markup.</p>
+    </step>
+</procedure>
+
+## Add interactive elements
+
+### Tabs
+To add switchable content, you can make use of tabs (inject them by starting to type `tab` on a new line):
 
 <tabs>
-    <tab title="Maven">
-        <code-block lang=xml>
-            <![CDATA[
-                <dependency>
-                    <groupId>org.makechtec.software</groupId>
-                    <artifactId>sql_support</artifactId>
-                    <version>2.1.0</version>
-                </dependency>
-            ]]>
-        </code-block>
+    <tab title="Markdown">
+        <code-block lang="plain text">![Alt Text](new_topic_options.png){ width=450 }</code-block>
     </tab>
-    <tab title="Groovy">
-        <code-block lang=groovy>
-            implementation 'org.makechtec.software:sql_support:2.1.0'
-        </code-block>
-    </tab>
-    <tab title="Kotlin">
-        <code-block lang=kotlin>
-            implementation ("org.makechtec.software:sql_support:2.1.0")
-        </code-block>
+    <tab title="Semantic markup">
+        <code-block lang="xml">
+            <![CDATA[<img src="new_topic_options.png" alt="Alt text" width="450px"/>]]></code-block>
     </tab>
 </tabs>
 
-### Usage
+### Collapsible blocks
+Apart from injecting entire XML elements, you can use attributes to configure the behavior of certain elements.
+For example, you can collapse a chapter that contains non-essential information:
 
-#### Example producing a Dto record
+#### Supplementary info {collapsible="true"}
+Content under a collapsible header will be collapsed by default,
+but you can modify the behavior by adding the following attribute:
+`default-state="expanded"`
 
-<tabs>
-    <tab title="Call to database">
-        <code-block lang="java">
-                var connectionCredentials = new ConnectionInformation(
-                    "user",
-                    "pass",
-                    "host",
-                    "3306",
-                    "database"
-                );
-                var postgresEngine = new PostgresEngine&lt;Dto&gt;(connectionCredentials);
-                ProducerByCall&lt;Dto&gt; producer =
-                        resultSet -> {
-                            Dto dto = null;
-                            while (resultSet.next()) {
-                                dto = new Dto(
-                                        resultSet.getInt("id"),
-                                        resultSet.getString("name")
-                                );
-                            }
-                            return dto;
-                        };
-                try {
-                    var result =
-                            postgresEngine.isPrepared()
-                                    .queryString("CALL dto_by_id(?)")
-                                    .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
-                                    .run(producer);
-                } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                assertFalse(dto.name().isEmpty());
-        </code-block>
-    </tab>
-    <tab title="Dto.java">
-        <code-block lang="java">
-            public record Dto(int id, String name) {
-            }
-        </code-block>
-    </tab>
-</tabs>
+### Convert selection to XML
+If you need to extend an element with more functions, you can convert selected content from Markdown to semantic markup.
+For example, if you want to merge cells in a table, it's much easier to convert it to XML than do this in Markdown.
+Position the caret anywhere in the table and press <shortcut>Alt+Enter</shortcut>:
 
-### Changes History ###
+<img src="convert_table_to_xml.png" alt="Convert table to XML" width="706" border-effect="line"/>
 
-#### 2.1.0 Added PostgreSQL support ####
+## Feedback and support
+Please report any issues, usability improvements, or feature requests to our
+<a href="https://youtrack.jetbrains.com/newIssue?project=WRS">YouTrack project</a>
+(you will need to register).
 
-#### 1.4.2 Fixing bug related to com.mysql.cj.jdbc.Driver class load ####
+You are welcome to join our
+<a href="https://jb.gg/WRS_Slack">public Slack workspace</a>.
+Before you do, please read our [Code of conduct](https://plugins.jetbrains.com/plugin/20158-writerside/docs/writerside-code-of-conduct.html).
+We assume that you’ve read and acknowledged it before joining.
 
-#### 1.4.1 Fixing bug in types ####
-
-#### 1.4.0 Added more supported prepared statement types {collapsible="true"}
-
-They are
-
-- TYPE_STRING
-- TYPE_INTEGER
-- TYPE_FLOAT
-- TYPE_LONG
-- TYPE_BIG_DECIMAL
-- TYPE_DOUBLE
-
-#### 1.3.2 Added ProducerByCall functionality ####
+You can also always email us at [writerside@jetbrains.com](mailto:writerside@jetbrains.com).
 
 <seealso>
     <category ref="wrs">
-        <a href="postgres-connection.md">Postgres Connection</a>
+        <a href="https://plugins.jetbrains.com/plugin/20158-writerside/docs/markup-reference.html">Markup reference</a>
+        <a href="https://plugins.jetbrains.com/plugin/20158-writerside/docs/manage-table-of-contents.html">Reorder topics in the TOC</a>
+        <a href="https://plugins.jetbrains.com/plugin/20158-writerside/docs/local-build.html">Build and publish</a>
+        <a href="https://plugins.jetbrains.com/plugin/20158-writerside/docs/configure-search.html">Configure Search</a>
     </category>
 </seealso>

@@ -7,5 +7,4 @@
                  start-page="starter.md">
 
     <toc-element topic="starter.md"/>
-    <toc-element topic="postgres-connection.md"/>
 </instance-profile>
