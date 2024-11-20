@@ -1,6 +1,5 @@
 # Sql support
 
-
 ## Requirements ##
 
 - java 17+
@@ -8,6 +7,7 @@
 - PostgreSQL as database [link to docs](postgres-connection.md)
 
 ### Dependency ###
+
 There are the dependecy tags
 
 <tabs>
@@ -36,7 +36,7 @@ There are the dependecy tags
 
 ### Usage
 
-#### Example producing a Dto record 
+#### Example producing a Dto record
 
 <tabs>
     <tab title="Call to database">
