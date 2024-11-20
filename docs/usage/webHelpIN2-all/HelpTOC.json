@@ -1,1 +1,24 @@
-{"entities":{"pages":{"starter":{"id":"starter","title":"Sql support","url":"starter.html","level":0,"tabIndex":0},"postgres-connection":{"id":"postgres-connection","title":"postgres_connection","url":"postgres-connection.html","level":0,"tabIndex":1}}},"topLevelIds":["starter","postgres-connection"]}
+{
+  "entities": {
+    "pages": {
+      "starter": {
+        "id": "starter",
+        "title": "Sql support",
+        "url": "starter.html",
+        "level": 0,
+        "tabIndex": 0
+      },
+      "postgres-connection": {
+        "id": "postgres-connection",
+        "title": "postgres_connection",
+        "url": "postgres-connection.html",
+        "level": 0,
+        "tabIndex": 1
+      }
+    }
+  },
+  "topLevelIds": [
+    "starter",
+    "postgres-connection"
+  ]
+}
