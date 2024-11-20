@@ -15,13 +15,13 @@ public class PropertyLoader {
         this.filename = filename;
     }
 
-    public Optional<String> getProperty(String key){
+    public Optional<String> getProperty(String key) {
 
-        if(!isAlreadyLoaded){
-            try{
+        if (!isAlreadyLoaded) {
+            try {
                 loadFromFile();
                 isAlreadyLoaded = true;
-            }catch (IOException e){
+            } catch (IOException e) {
                 return Optional.empty();
             }
         }

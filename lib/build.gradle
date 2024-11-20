@@ -50,9 +50,19 @@ publishing {
         maven(MavenPublication) {
             groupId = 'org.makechtec.software'
             artifactId = 'sql_support'
-            version = '2.2.0'
+            version = '3.0.0-beta'
 
             from components.java
+        }
+    }
+
+    repositories{
+        maven{
+            url = uri("https://makech-technology-879381274336.d.codeartifact.us-east-2.amazonaws.com/maven/makech-technology-maven-repository/")
+            credentials{
+                username = "aws"
+                password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
+            }
         }
     }
 
