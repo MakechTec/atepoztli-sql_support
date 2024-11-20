@@ -52,4 +52,11 @@ public class PostgresEngine<T> implements SQLEngineBuilder<T> {
         caller.update();
     }
 
+    @Override
+    public long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        var statement = this.statementInformationBuilder.build();
+        var caller = new PostgresCaller<T>(this.connectionInformation, statement);
+        return caller.updateWithGeneratedKey(producer);
+    }
+
 }

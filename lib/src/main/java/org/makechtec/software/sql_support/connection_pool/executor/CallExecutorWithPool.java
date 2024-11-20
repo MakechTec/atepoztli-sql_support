@@ -1,7 +1,7 @@
-package org.makechtec.software.sql_support.query_call_mechanism;
+package org.makechtec.software.sql_support.connection_pool.executor;
 
-import org.makechtec.software.sql_support.ConnectionInformation;
-import org.makechtec.software.sql_support.SQLSupport;
+import org.makechtec.software.sql_support.connection_pool.ConnectionPool;
+import org.makechtec.software.sql_support.query_call_mechanism.ProducerByCall;
 import org.makechtec.software.sql_support.query_process.statement.StatementInformation;
 
 import java.math.BigDecimal;
@@ -11,14 +11,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
-public class CallExecutor<P> {
-
-    private static final Logger LOG = Logger.getLogger(CallExecutor.class.getName());
-    private final ConnectionInformation connectionInformation;
+public class CallExecutorWithPool<P> {
+    private static final Logger LOG = Logger.getLogger(CallExecutorWithPool.class.getName());
+    private final ConnectionPool pool;
     private final StatementInformation statementInformation;
 
-    public CallExecutor(ConnectionInformation connectionInformation, StatementInformation statementInformation) {
-        this.connectionInformation = connectionInformation;
+    public CallExecutorWithPool(ConnectionPool pool, StatementInformation statementInformation) {
+        this.pool = pool;
         this.statementInformation = statementInformation;
     }
 
@@ -43,13 +42,14 @@ public class CallExecutor<P> {
         });
     }
 
-    public P execute(ProducerByCall<P> producer) {
+    public P execute(ProducerByCall<P> producer) throws SQLException {
 
-        var support = new SQLSupport(connectionInformation);
+        CallExecutorWithPool.Wrapper<P> wrapper = new CallExecutorWithPool.Wrapper<>();
 
-        Wrapper<P> wrapper = new Wrapper<>();
+        pool.provide(pooledConnection -> {
 
-        support.runSQLQuery(connection -> {
+            var connection = pooledConnection.nativeConnection();
+
             if (statementInformation.isPrepared()) {
                 var preparedStatement = this.createPreparedStatement(statementInformation, connection);
 
@@ -80,11 +80,12 @@ public class CallExecutor<P> {
         return wrapper.reservedSpace;
     }
 
-    public void update() {
+    public void update() throws SQLException {
 
-        var support = new SQLSupport(connectionInformation);
+        pool.provide(pooledConnection -> {
 
-        support.runSQLQuery(connection -> {
+            var connection = pooledConnection.nativeConnection();
+
             if (statementInformation.isPrepared()) {
                 var preparedStatement = this.createPreparedStatement(statementInformation, connection);
 
@@ -103,12 +104,13 @@ public class CallExecutor<P> {
 
     }
 
-    public long updateWithGeneratedKey(ProducerByCall<Long> producer) {
-        var support = new SQLSupport(connectionInformation);
+    public long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException {
 
-        var wrapper = new Wrapper<Long>();
+        var wrapper = new CallExecutorWithPool.Wrapper<Long>();
 
-        support.runSQLQuery(connection -> {
+        pool.provide(pooledConnection -> {
+
+            var connection = pooledConnection.nativeConnection();
 
             if (!statementInformation.isPrepared()) {
                 LOG.severe("Statement is not prepared but required when trying to get generated key");
@@ -149,5 +151,4 @@ public class CallExecutor<P> {
     private static class Wrapper<P> {
         public P reservedSpace;
     }
-
 }

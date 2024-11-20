@@ -2,7 +2,7 @@ package org.makechtec.software.sql_support;
 
 import lombok.Getter;
 import lombok.extern.java.Log;
-import org.makechtec.software.properties_loader.PropertyLoader;
+import org.makechtec.software.sql_support.commons.properties.PropertyLoader;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

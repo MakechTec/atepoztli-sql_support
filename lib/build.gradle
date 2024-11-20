@@ -11,7 +11,7 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
     id 'maven-publish'
-    id "io.freefair.lombok" version "8.0.1"
+    id "io.freefair.lombok" version "8.6"
 }
 
 repositories {
@@ -26,7 +26,6 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:30.1.1-jre'
-    implementation 'org.makechtec.software:properties_loader:1.0.1'
     implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.32'
     implementation 'org.jetbrains:annotations:24.0.0'
 
@@ -51,9 +50,19 @@ publishing {
         maven(MavenPublication) {
             groupId = 'org.makechtec.software'
             artifactId = 'sql_support'
-            version = '2.1.0'
+            version = '3.0.0-beta'
 
             from components.java
+        }
+    }
+
+    repositories{
+        maven{
+            url = uri("https://makech-technology-879381274336.d.codeartifact.us-east-2.amazonaws.com/maven/makech-technology-maven-repository/")
+            credentials{
+                username = "aws"
+                password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
+            }
         }
     }
 

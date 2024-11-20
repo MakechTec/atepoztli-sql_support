@@ -1,6 +1,5 @@
 package org.makechtec.software.sql_support.query_process;
 
-import lombok.Getter;
 import org.makechtec.software.sql_support.ConnectionInformation;
 import org.makechtec.software.sql_support.SQLSupport;
 import org.makechtec.software.sql_support.query_process.statement.StatementInformation;
@@ -9,8 +8,6 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class QueryCaller {
 
