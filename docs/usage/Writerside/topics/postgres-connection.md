@@ -3,6 +3,7 @@
 This tutorial will show how to connect to a PostgreSQL database
 using sql support library.
 
+
 * Before you start
 * Prepare database connection information
 * Connect and handle result
@@ -12,7 +13,6 @@ using sql support library.
 Please get following information:
 
 Make sure that you have:
-
 - Database server IP
 - Database port
 - Database user
@@ -73,7 +73,7 @@ In the Dto.java file
 In the above code you have seen first set the flag if you will
 put params at the prepared statement, this is the "isPrepared()".
 
-Then add corresponding queryString and each param with corresponding
+Then add corresponding queryString and each param with corresponding 
 param type.
 
 Finally pass the resulset consumer function to handle the result.

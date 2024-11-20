@@ -1,209 +1,61 @@
 <!DOCTYPE html SYSTEM "about:legacy-compat">
-<html data-preset="contrast" data-primary-color="#307FFF" lang="en-US">
-<head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <meta charset="UTF-8">
-    <meta content="noindex" name="robots">
-    <meta content="2024-05-05T11:13:06.764625" name="built-on">
-    <title>Sql support | Instance Name</title>
-    <script id="virtual-toc-data" type="application/json">[
-        {
-            "id": "requirements",
-            "level": 0,
-            "title": "Requirements",
-            "anchor": "#requirements"
-        }
-    ]</script>
-    <script id="topic-shortcuts" type="application/json"></script>
-    <link href="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.css" rel="stylesheet">
-    <meta content="#000000" name="msapplication-TileColor">
-    <link href="https://jetbrains.com/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="https://jetbrains.com/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
-    <link href="https://jetbrains.com/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
-    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"
-          name="msapplication-TileImage">
-    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"
-          name="msapplication-square70x70logo">
-    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"
-          name="msapplication-square150x150logo">
-    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"
-          name="msapplication-wide310x150logo">
-    <meta content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"
-          name="msapplication-square310x310logo">
-    <meta content="" name="image"><!-- Open Graph -->
-    <meta content="Sql support | Instance Name" property="og:title">
-    <meta content="" property="og:description">
-    <meta content="" property="og:image">
-    <meta content="Instance Name Help" property="og:site_name">
-    <meta content="website" property="og:type">
-    <meta content="en_US" property="og:locale">
-    <meta content="writerside-documentation/starter.html" property="og:url"><!-- End Open Graph --><!-- Twitter Card -->
-    <meta content="summary_large_image" name="twitter:card">
-    <meta content="" name="twitter:site">
-    <meta content="Sql support | Instance Name" name="twitter:title">
-    <meta content="" name="twitter:description">
-    <meta content="" name="twitter:creator">
-    <meta content="" name="twitter:image:src"><!-- End Twitter Card --><!-- Schema.org WebPage -->
-    <script type="application/ld+json">{
-        "@context": "http://schema.org",
-        "@type": "WebPage",
-        "@id": "writerside-documentation/starter.html#webpage",
-        "url": "writerside-documentation/starter.html",
-        "name": "Sql support | Instance Name",
-        "description": "",
-        "image": "",
-        "inLanguage": "en-US"
-    }</script><!-- End Schema.org --><!-- Schema.org WebSite -->
-    <script type="application/ld+json">{
-        "@type": "WebSite",
-        "@id": "writerside-documentation/#website",
-        "url": "writerside-documentation/",
-        "name": "Instance Name Help"
-    }</script><!-- End Schema.org --></head>
-<body data-article-props="{&quot;seeAlso&quot;:[{&quot;title&quot;:&quot;Writerside documentation&quot;,&quot;links&quot;:[{&quot;url&quot;:&quot;postgres-connection.html&quot;,&quot;text&quot;:&quot;Postgres Connection&quot;,&quot;tooltip&quot;:&quot;This tutorial will show how to connect to a PostgreSQL database using sql support library.&quot;,&quot;description&quot;:&quot;This tutorial will show how to connect to a PostgreSQL database using sql support library.&quot;}]}],&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-breadcrumbs=""
-      data-id="starter"
-      data-main-title="Sql support" data-template="article">
-<div class="wrapper">
-    <main class="panel _main">
-        <header class="panel__header">
-            <div class="container"><h3>Instance Name Help</h3>
-                <div class="panel-trigger"></div>
-            </div>
-        </header>
-        <section class="panel__content">
-            <div class="container">
-                <article class="article" data-shortcut-switcher="inactive"><h1 data-toc="starter" id="starter.md">Sql
-                    support</h1>
-                    <section class="chapter"><h2 data-toc="requirements" id="requirements">Requirements</h2>
-                        <ul class="list _bullet" id="i943hc8_6768">
-                            <li class="list__item" id="i943hc8_6769"><p>java 17+</p></li>
-                            <li class="list__item" id="i943hc8_6770"><p>MySQL as database</p></li>
-                            <li class="list__item" id="i943hc8_6771"><p>PostgreSQL as database <a
-                                    data-tooltip="This tutorial will show how to connect to a PostgreSQL database using sql support library." href="postgres-connection.html"
-                                    id="i943hc8_6772">link
-                                to docs</a></p></li>
-                        </ul>
-                        <section class="chapter"><h3 data-toc="dependency" id="dependency">Dependency</h3>
-                            <p id="i943hc8_6773">There are the dependecy tags</p>
-                            <div class="tabs" data-anchors="[i943hc8_6775,i943hc8_6777,i943hc8_6779]" id="i943hc8_6774">
-                                <div class="tabs__content" data-gtm="tab" data-title="Maven" id="i943hc8_6775">
-                                    <div class="code-block" data-lang="none" data-title="None">
-
-                                        &lt;dependency&gt;
-                                        &lt;groupId&gt;org.makechtec.software&lt;/groupId&gt;
-                                        &lt;artifactId&gt;sql_support&lt;/artifactId&gt;
-                                        &lt;version&gt;2.1.0&lt;/version&gt;
-                                        &lt;/dependency&gt;
-
-                                    </div>
-                                </div>
-                                <div class="tabs__content" data-gtm="tab" data-title="Groovy" id="i943hc8_6777">
-                                    <div class="code-block" data-lang="none" data-title="None">
-                                        implementation 'org.makechtec.software:sql_support:2.1.0'
-                                    </div>
-                                </div>
-                                <div class="tabs__content" data-gtm="tab" data-title="Kotlin" id="i943hc8_6779">
-                                    <div class="code-block" data-lang="none" data-title="None">
-                                        implementation (&quot;org.makechtec.software:sql_support:2.1.0&quot;)
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="chapter"><h3 data-toc="usage" id="usage">Usage</h3>
-                            <section class="chapter"><h4 data-toc="example-producing-a-dto-record"
-                                                         id="example-producing-a-dto-record">Example producing a
-                                Dto record</h4>
-                                <div class="tabs" data-anchors="[i943hc8_6782,i943hc8_6784]" id="i943hc8_6781">
-                                    <div class="tabs__content" data-gtm="tab" data-title="Call to database"
-                                         id="i943hc8_6782">
-                                        <div class="code-block" data-lang="java" data-title="Java">
-                                            var connectionCredentials = new ConnectionInformation(
-                                            &quot;user&quot;,
-                                            &quot;pass&quot;,
-                                            &quot;host&quot;,
-                                            &quot;3306&quot;,
-                                            &quot;database&quot;
-                                            );
-                                            var postgresEngine = new PostgresEngine&lt;Dto&gt;(connectionCredentials);
-                                            ProducerByCall&lt;Dto&gt; producer =
-                                            resultSet -&gt; {
-                                            Dto dto = null;
-                                            while (resultSet.next()) {
-                                            dto = new Dto(
-                                            resultSet.getInt(&quot;id&quot;),
-                                            resultSet.getString(&quot;name&quot;)
-                                            );
-                                            }
-                                            return dto;
-                                            };
-                                            try {
-                                            var result =
-                                            postgresEngine.isPrepared()
-                                            .queryString(&quot;CALL dto_by_id(?)&quot;)
-                                            .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
-                                            .run(producer);
-                                            } catch (SQLException | ClassNotFoundException | InstantiationException |
-                                            IllegalAccessException e) {
-                                            e.printStackTrace();
-                                            }
-                                            assertFalse(dto.name().isEmpty());
-                                        </div>
-                                    </div>
-                                    <div class="tabs__content" data-gtm="tab" data-title="Dto.java" id="i943hc8_6784">
-                                        <div class="code-block" data-lang="java" data-title="Java">
-                                            public record Dto(int id, String name) {
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </section>
-                        <section class="chapter"><h3 data-toc="changes-history" id="changes-history">Changes
-                            History</h3>
-                            <section class="chapter"><h4 data-toc="2-1-0-added-postgresql-support"
-                                                         id="2-1-0-added-postgresql-support">2.1.0 Added
-                                PostgreSQL support</h4></section>
-                            <section class="chapter"><h4
-                                    data-toc="1-4-2-fixing-bug-related-to-com-mysql-cj-jdbc-driver-class-load"
-                                    id="1-4-2-fixing-bug-related-to-com-mysql-cj-jdbc-driver-class-load">1.4.2
-                                Fixing bug related to com.mysql.cj.jdbc.Driver class load</h4></section>
-                            <section class="chapter"><h4 data-toc="1-4-1-fixing-bug-in-types"
-                                                         id="1-4-1-fixing-bug-in-types">1.4.1 Fixing bug in
-                                types</h4></section>
-                            <section class="chapter">
-                                <div class="collapse">
-                                    <div class="collapse__title"><h4
-                                            data-toc="1-4-0-added-more-supported-prepared-statement-types"
-                                            id="1-4-0-added-more-supported-prepared-statement-types">1.4.0 Added
-                                        more supported prepared statement types</h4></div>
-                                    <div class="collapse__content"><p id="i943hc8_6786">They are</p>
-                                        <ul class="list _bullet" id="i943hc8_6787">
-                                            <li class="list__item" id="i943hc8_6788"><p>TYPE_STRING</p></li>
-                                            <li class="list__item" id="i943hc8_6789"><p>TYPE_INTEGER</p></li>
-                                            <li class="list__item" id="i943hc8_6790"><p>TYPE_FLOAT</p></li>
-                                            <li class="list__item" id="i943hc8_6791"><p>TYPE_LONG</p></li>
-                                            <li class="list__item" id="i943hc8_6792"><p>TYPE_BIG_DECIMAL</p></li>
-                                            <li class="list__item" id="i943hc8_6793"><p>TYPE_DOUBLE</p></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="chapter"><h4 data-toc="1-3-2-added-producerbycall-functionality"
-                                                         id="1-3-2-added-producerbycall-functionality">1.3.2 Added
-                                ProducerByCall functionality</h4></section>
-                        </section>
-                    </section>
-                    <div class="last-modified">Last modified: 05 mayo 2024</div>
-                    <div data-feedback-placeholder="true"></div>
-                    <div class="navigation-links _bottom"><a class="navigation-links__next"
-                                                             href="postgres-connection.html">postgres_connection</a>
-                    </div>
-                </article>
-                <div id="disqus_thread"></div>
-            </div>
-        </section>
-    </main>
-</div>
-<script src="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.js"></script>
-</body>
-</html>
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex"><meta name="built-on" content="2024-05-05T11:13:06.764625"><title>Sql support | Instance Name</title><script type="application/json" id="virtual-toc-data">[{"id":"requirements","level":0,"title":"Requirements","anchor":"#requirements"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.css" rel="stylesheet"><meta name="msapplication-TileColor" content="#000000"><link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Sql support | Instance Name"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="Instance Name Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="writerside-documentation/starter.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Sql support | Instance Name"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "writerside-documentation/starter.html#webpage",
+    "url": "writerside-documentation/starter.html",
+    "name": "Sql support | Instance Name",
+    "description": "",
+    "image": "",
+    "inLanguage":"en-US"
+}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
+    "@type": "WebSite",
+    "@id": "writerside-documentation/#website",
+    "url": "writerside-documentation/",
+    "name": "Instance Name Help"
+}</script><!-- End Schema.org --></head><body data-id="starter" data-main-title="Sql support" data-article-props="{&quot;seeAlso&quot;:[{&quot;title&quot;:&quot;Writerside documentation&quot;,&quot;links&quot;:[{&quot;url&quot;:&quot;postgres-connection.html&quot;,&quot;text&quot;:&quot;Postgres Connection&quot;,&quot;tooltip&quot;:&quot;This tutorial will show how to connect to a PostgreSQL database using sql support library.&quot;,&quot;description&quot;:&quot;This tutorial will show how to connect to a PostgreSQL database using sql support library.&quot;}]}],&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs=""><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Instance Name  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="starter" id="starter.md">Sql support</h1><section class="chapter"><h2 id="requirements" data-toc="requirements">Requirements</h2><ul class="list _bullet" id="i943hc8_6768"><li class="list__item" id="i943hc8_6769"><p>java 17+</p></li><li class="list__item" id="i943hc8_6770"><p>MySQL as database</p></li><li class="list__item" id="i943hc8_6771"><p>PostgreSQL as database <a href="postgres-connection.html" id="i943hc8_6772" data-tooltip="This tutorial will show how to connect to a PostgreSQL database using sql support library.">link to docs</a></p></li></ul><section class="chapter"><h3 id="dependency" data-toc="dependency">Dependency</h3><p id="i943hc8_6773">There are the dependecy tags</p><div class="tabs" id="i943hc8_6774" data-anchors="[i943hc8_6775,i943hc8_6777,i943hc8_6779]"><div class="tabs__content" data-gtm="tab" id="i943hc8_6775" data-title="Maven"><div class="code-block" data-lang="none" data-title="None">
+            
+                &lt;dependency&gt;
+                    &lt;groupId&gt;org.makechtec.software&lt;/groupId&gt;
+                    &lt;artifactId&gt;sql_support&lt;/artifactId&gt;
+                    &lt;version&gt;2.1.0&lt;/version&gt;
+                &lt;/dependency&gt;
+            
+        </div></div><div class="tabs__content" data-gtm="tab" id="i943hc8_6777" data-title="Groovy"><div class="code-block" data-lang="none" data-title="None">
+            implementation 'org.makechtec.software:sql_support:2.1.0'
+        </div></div><div class="tabs__content" data-gtm="tab" id="i943hc8_6779" data-title="Kotlin"><div class="code-block" data-lang="none" data-title="None">
+            implementation (&quot;org.makechtec.software:sql_support:2.1.0&quot;)
+        </div></div></div></section><section class="chapter"><h3 id="usage" data-toc="usage">Usage</h3><section class="chapter"><h4 id="example-producing-a-dto-record" data-toc="example-producing-a-dto-record">Example producing a Dto record</h4><div class="tabs" id="i943hc8_6781" data-anchors="[i943hc8_6782,i943hc8_6784]"><div class="tabs__content" data-gtm="tab" id="i943hc8_6782" data-title="Call to database"><div class="code-block" data-lang="java" data-title="Java">
+                var connectionCredentials = new ConnectionInformation(
+                    &quot;user&quot;,
+                    &quot;pass&quot;,
+                    &quot;host&quot;,
+                    &quot;3306&quot;,
+                    &quot;database&quot;
+                );
+                var postgresEngine = new PostgresEngine&lt;Dto&gt;(connectionCredentials);
+                ProducerByCall&lt;Dto&gt; producer =
+                        resultSet -&gt; {
+                            Dto dto = null;
+                            while (resultSet.next()) {
+                                dto = new Dto(
+                                        resultSet.getInt(&quot;id&quot;),
+                                        resultSet.getString(&quot;name&quot;)
+                                );
+                            }
+                            return dto;
+                        };
+                try {
+                    var result =
+                            postgresEngine.isPrepared()
+                                    .queryString(&quot;CALL dto_by_id(?)&quot;)
+                                    .addParamAtPosition(1, 1, ParamType.TYPE_INTEGER)
+                                    .run(producer);
+                } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                assertFalse(dto.name().isEmpty());
+        </div></div><div class="tabs__content" data-gtm="tab" id="i943hc8_6784" data-title="Dto.java"><div class="code-block" data-lang="java" data-title="Java">
+            public record Dto(int id, String name) {
+            }
+        </div></div></div></section></section><section class="chapter"><h3 id="changes-history" data-toc="changes-history">Changes History</h3><section class="chapter"><h4 id="2-1-0-added-postgresql-support" data-toc="2-1-0-added-postgresql-support">2.1.0 Added PostgreSQL support</h4></section><section class="chapter"><h4 id="1-4-2-fixing-bug-related-to-com-mysql-cj-jdbc-driver-class-load" data-toc="1-4-2-fixing-bug-related-to-com-mysql-cj-jdbc-driver-class-load">1.4.2 Fixing bug related to com.mysql.cj.jdbc.Driver class load</h4></section><section class="chapter"><h4 id="1-4-1-fixing-bug-in-types" data-toc="1-4-1-fixing-bug-in-types">1.4.1 Fixing bug in types</h4></section><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="1-4-0-added-more-supported-prepared-statement-types" data-toc="1-4-0-added-more-supported-prepared-statement-types">1.4.0 Added more supported prepared statement types</h4></div><div class="collapse__content"><p id="i943hc8_6786">They are</p><ul class="list _bullet" id="i943hc8_6787"><li class="list__item" id="i943hc8_6788"><p>TYPE_STRING</p></li><li class="list__item" id="i943hc8_6789"><p>TYPE_INTEGER</p></li><li class="list__item" id="i943hc8_6790"><p>TYPE_FLOAT</p></li><li class="list__item" id="i943hc8_6791"><p>TYPE_LONG</p></li><li class="list__item" id="i943hc8_6792"><p>TYPE_BIG_DECIMAL</p></li><li class="list__item" id="i943hc8_6793"><p>TYPE_DOUBLE</p></li></ul></div></div></section><section class="chapter"><h4 id="1-3-2-added-producerbycall-functionality" data-toc="1-3-2-added-producerbycall-functionality">1.3.2 Added ProducerByCall functionality</h4></section></section></section><div class="last-modified">Last modified: 05 mayo 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="postgres-connection.html" class="navigation-links__next">postgres_connection</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.js"></script></body></html>
