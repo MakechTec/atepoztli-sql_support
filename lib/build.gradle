@@ -50,7 +50,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'org.makechtec.software'
             artifactId = 'sql_support'
-            version = '3.0.0-beta'
+            version = '3.0.2-BETA'
 
             from components.java
         }
