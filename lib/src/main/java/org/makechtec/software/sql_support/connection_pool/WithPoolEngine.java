@@ -37,7 +37,7 @@ public class WithPoolEngine<T> implements SQLEngineBuilder<T> {
     }
 
     @Override
-    public T run(ProducerByCall<T> producer) throws SQLException {
+    public T run(ProducerByCall<T> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         var statement = this.statementInformationBuilder.build();
         var caller = new CallExecutorWithPool<T>(this.connectionPool, statement);
 
@@ -45,7 +45,7 @@ public class WithPoolEngine<T> implements SQLEngineBuilder<T> {
     }
 
     @Override
-    public void update() throws SQLException {
+    public void update() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         var statement = this.statementInformationBuilder.build();
         var caller = new CallExecutorWithPool<T>(this.connectionPool, statement);
 
@@ -53,7 +53,7 @@ public class WithPoolEngine<T> implements SQLEngineBuilder<T> {
     }
 
     @Override
-    public long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException {
+    public long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         var statement = this.statementInformationBuilder.build();
         var caller = new CallExecutorWithPool<T>(this.connectionPool, statement);
 

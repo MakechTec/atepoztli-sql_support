@@ -31,7 +31,7 @@ public class ConnectionPool {
 
     }
 
-    public void provide(PoolConnectionBorrower borrower) throws SQLException {
+    public void provide(PoolConnectionBorrower borrower) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         PooledConnection connection;
 

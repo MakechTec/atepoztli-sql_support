@@ -42,7 +42,7 @@ public class CallExecutorWithPool<P> {
         });
     }
 
-    public P execute(ProducerByCall<P> producer) throws SQLException {
+    public P execute(ProducerByCall<P> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         CallExecutorWithPool.Wrapper<P> wrapper = new CallExecutorWithPool.Wrapper<>();
 
@@ -80,7 +80,7 @@ public class CallExecutorWithPool<P> {
         return wrapper.reservedSpace;
     }
 
-    public void update() throws SQLException {
+    public void update() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         pool.provide(pooledConnection -> {
 
@@ -104,7 +104,7 @@ public class CallExecutorWithPool<P> {
 
     }
 
-    public long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException {
+    public long updateWithGeneratedKey(ProducerByCall<Long> producer) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         var wrapper = new CallExecutorWithPool.Wrapper<Long>();
 
